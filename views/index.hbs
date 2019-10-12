@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/public/dist/css/layui.css" media="all">
+    <style>
+        a {}
+    </style>
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        {{> header}}
+        {{> sideBar}}
+
+        <div class="layui-body">
+            <div style="dispaky:flex;align-items: center;justify-content: center;padding: 15px;font-size: 40px;">
+                {{message}}
+            </div>
+        </div>
+
+        {{> footer}}
+    </div>
+    <script src="/public/dist/css/layui.js"></script>
+    <script>
+        layui.use('element', function () {
+            var element = layui.element;
+
+        });
+    </script>
+
+</html>
