@@ -16,11 +16,9 @@ body {
   width: 200px;
 }
 
-.container-right {
+.container .container-right {
   width: 790px;
   margin-left: 10px;
-  background: #fff;
-  padding: 15px;
 }
 
 .markdown-container {
@@ -30,6 +28,14 @@ body {
   display: flex;
   z-index: 1001;
 }
+
+.markdown-container .container-right {
+  width: 790px;
+  margin-left: 10px;
+  background: #fff;
+  padding: 15px;
+}
+
 .markdown-form {
   flex: 0 0 400px;
   padding: 0 10px 0 0;
