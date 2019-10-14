@@ -20,7 +20,7 @@ export class PersonController {
   @Get()
   @Render('person.hbs')
   async root() {
-    let result = await this.findAll();
+    let result = await this.PersonService.findAll();
     return { title: '我是添加页面', message: '这里是person', result: result };
   }
 
