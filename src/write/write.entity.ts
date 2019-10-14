@@ -11,6 +11,9 @@ export class Write {
   @Column({ length: 100 })
   Title: string;
 
+  @Column({ length: 100 })
+  collect: string;
+
   @Column({ length: 300 })
   Description: string;
 
