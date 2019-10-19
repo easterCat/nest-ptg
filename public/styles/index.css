@@ -14,6 +14,7 @@ body {
 
 .container-left {
   width: 200px;
+  background-color: #393d49;
 }
 
 .container .container-right {

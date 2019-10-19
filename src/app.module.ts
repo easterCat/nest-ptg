@@ -5,10 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { PersonModule } from './person/person.module';
 import { WriteModule } from './write/write.module';
+import { CollectController } from './collect/collect.controller';
+import { CollectModule } from './collect/collect.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), PersonModule, WriteModule],
-  controllers: [AppController],
+  imports: [TypeOrmModule.forRoot(), PersonModule, WriteModule, CollectModule],
+  controllers: [AppController, CollectController],
   providers: [AppService],
 })
 export class AppModule {
