@@ -1,6 +1,5 @@
 import { Controller, Get, Render, Post, Body, Param } from '@nestjs/common';
 import { WriteService } from './write.service';
-import { Write } from './write.entity';
 import {
   ensureDirSync,
   ensureFileSync,

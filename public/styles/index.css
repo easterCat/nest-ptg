@@ -22,6 +22,10 @@ body {
   margin-left: 10px;
 }
 
+.form-content {
+  padding: 20px;
+}
+
 .markdown-container {
   padding-top: 20px;
   width: 100%;

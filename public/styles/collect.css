@@ -1,0 +1,22 @@
+.collect-container {
+  padding-top: 20px;
+  width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+
+.collect-container .container-left {
+  width: 200px;
+  background-color: #393d49;
+  min-height: 500px;
+}
+
+.collect-container .container-right {
+  width: 790px;
+  margin-left: 10px;
+  min-height: 500px;
+  background-color: #fff;
+}

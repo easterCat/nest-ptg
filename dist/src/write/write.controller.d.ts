@@ -1,16 +1,15 @@
 import { WriteService } from './write.service';
-import { Write } from './write.entity';
 export declare class WriteController {
     private readonly WriteService;
     constructor(WriteService: WriteService);
     root(): Promise<{
         title: string;
         message: string;
-        result: Write[];
+        result: import("./write.entity").Write[];
     }>;
     findAll(): Promise<{
         title: string;
-        lists: Write[];
+        lists: import("./write.entity").Write[];
     }>;
     findById(params: any): Promise<{
         markdown: any;
@@ -18,6 +17,7 @@ export declare class WriteController {
         WriteID: number;
         CreateTime: string;
         Title: string;
+        collect: string;
         Description: string;
         SavePath: string;
         Tags: string;
@@ -35,5 +35,5 @@ export declare class WriteController {
             html: string;
         };
     }>;
-    create(data: any): Promise<Write[]>;
+    create(data: any): Promise<import("./write.entity").Write[]>;
 }
