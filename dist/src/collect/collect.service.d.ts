@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { Collect } from './collect.entity';
+import { Collect } from './entity/collect.entity';
 export declare class CollectService {
     private readonly collectRepository;
     constructor(collectRepository: Repository<Collect>);

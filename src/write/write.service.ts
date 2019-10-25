@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Write } from './write.entity';
+import { WriteDto } from './dto/write.dto';
 
 @Injectable()
 export class WriteService {
@@ -14,6 +15,9 @@ export class WriteService {
   }
   async remove(id: string): Promise<any> {
     return await this.writeRepository.delete(id);
+  }
+  async update(updateData: WriteDto): Promise<any> {
+    return await this.writeRepository.save(updateData);
   }
   async findAll(): Promise<Write[]> {
     return await this.writeRepository.find();

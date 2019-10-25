@@ -9,10 +9,16 @@ export class Write {
   CreateTime: string;
 
   @Column({ length: 100 })
-  Title: string;
+  UpdateTime: string;
 
   @Column({ length: 100 })
-  collect: string;
+  Title: string;
+
+  @Column()
+  collectID: number;
+
+  @Column({ length: 80 })
+  collectName: string;
 
   @Column({ length: 300 })
   Description: string;

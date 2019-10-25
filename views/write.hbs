@@ -16,7 +16,6 @@
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-
 </head>
 
 <body>
@@ -49,7 +48,7 @@
                 <ul class="layui-nav layui-nav-tree each-collect" lay-filter="test">
                     {{#each allCollects}}
                     <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="layui-icon layui-icon-edit"></i> {{collectName}}</a>
+                        <a href="javascript:;"><i class="layui-icon layui-icon-edit"></i>{{collectName}}</a>
                     </li>
                     {{/each}}
                 </ul>
@@ -57,17 +56,19 @@
             {{!-- 新建文章 --}}
             <div class="layui-col-lg2  article-list">
                 <div class="list-header">
-                    <button type="button"
-                        class="layui-btn layui-btn-primary layui-btn-radius  layui-btn-fluid">新增文章</button>
+                    <button type="button" data-method="offset" data-type="auto"
+                        class="layui-btn layui-btn-primary layui-btn-radius  layui-btn-fluid add-article">新增文章</button>
                 </div>
-                <ul>
-                    <li>
-                        <span>今天是个好日在</span><i class="layui-icon layui-icon-set"></i>
+                <ul class="each-article">
+                    {{#each allArticles}}
+                    <li data-id={{WriteID}}>
+                        <span>{{Title}}</span><i class="layui-icon layui-icon-set"></i>
                     </li>
+                    {{/each}}
                 </ul>
                 <div class="list-footer">
-                    <button type="button"
-                        class="layui-btn layui-btn-primary layui-btn-radius layui-btn-fluid">在底部新增文章</button>
+                    <button type="button" data-method="offset" data-type="auto"
+                        class="layui-btn layui-btn-primary layui-btn-radius layui-btn-fluid add-article-end">在底部新增文章</button>
                 </div>
             </div>
             {{!-- 编辑markdown --}}
@@ -84,18 +85,63 @@
     <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
     <script>
+        // http://jquery.cuishifeng.cn/ 
+        // http://www.fontawesome.com.cn/faicons/
+        // https://github.com/sparksuite/simplemde-markdown-editor
         window.onload = function () {
             init();
         }
 
-        function init() {
-            addLayui();
-
-            var mdInstance = addMarkdown();
-            addHandleEvent(mdInstance);
+        var config = {
+            mdInstance: undefined,
+            addArticlePos: '',// header or footer 
+            currentArticleID: undefined, // 当前选择的文章id
+            currentCollectID: undefined, // 当前选择的文集id
         }
 
-        function addLayui() {
+        function init() {
+            initData();
+            addClickEvent();
+            addLayuiElement();
+            addLayuiLayer();
+            addMarkdown();
+            addFormHandleEvent(config.mdInstance);
+        }
+
+        function initData() {
+            if (!config.currentArticleID) {
+                var firstNode = $(".each-article li").eq(0)
+                config.currentArticleID = firstNode.data('id') || -1
+                firstNode.addClass('selected')
+            }
+            if (!config.currentCollectID) {
+                config.currentCollectID = $(".each-collect li").eq(0).data('id') || -1
+            }
+        }
+
+        function addClickEvent() {
+            $(".each-article").on('click', 'li', function (e) {
+                var id = $(this).data('id') || -1
+                config.currentArticleID = id;
+                $(this).addClass('selected').siblings().removeClass("selected");
+
+                axios({
+                    method: 'post',
+                    url: '/write/article',
+                    data: { id },
+                }).then(function (response) {
+                    var value = response.data.data.markdown
+                    config.mdInstance.codemirror.setValue(value)
+                }).catch(function (error) {
+                    config.mdInstance.codemirror.setValue('')
+                });
+            })
+            $(".each-collect").on('click', 'li', function (e) {
+                config.currentCollectID = $(this).data('id')
+            })
+        }
+
+        function addLayuiElement() {
             // 注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
             layui.use('element', function () {
                 var element = layui.element;
@@ -106,35 +152,124 @@
             });
         }
 
+        function addLayuiLayer() {
+            layui.use('layer', function () { //独立版的layer无需执行这一句
+                var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+                //触发事件
+                var active = {
+                    offset: function (othis) {
+                        var type = othis.data('type');
+                        var text = othis.text();
+
+                        layer.open({
+                            title: '新增文章',
+                            type: 1, offset: type,
+                            id: 'layerDemo' + type,
+                            area: '400px;',
+                            moveType: 1,
+                            content: '<div style="padding:20px">' +
+                                '<form class="layui-form" action="">' +
+                                '<div class="layui-form-item">' +
+                                '<input type="text" name="Title" lay-verify="Title" autocomplete="off" placeholder="请输入文章标题" class="layui-input">' +
+                                '</div>' +
+                                '<div class="layui-form-item layui-form-text">' +
+                                '<textarea placeholder="请输入简介" class="layui-textarea" name="Description"></textarea>' +
+                                '</div>' +
+                                '<div class="layui-form-item" style="text-align:center">' +
+                                '<button class="layui-btn" lay-submit lay-filter="submitArticle">提交</button>' +
+                                '</div>' +
+                                '</form>' +
+                                '</div>',
+                            btnAlign: 'c',
+                            shade: 0,
+                        });
+                    }
+                };
+
+                $('.add-article').on('click', function () {
+                    var $this = $(this);
+                    var method = $this.data('method');
+                    active[method] ? active[method].call(this, $this) : '';
+                    config.addArticlePos = 'header'
+                });
+
+                $('.add-article-end').on('click', function () {
+                    var $this = $(this);
+                    var method = $this.data('method');
+                    active[method] ? active[method].call(this, $this) : '';
+                    config.addArticlePos = 'footer'
+                });
+            })
+        }
+
         function addMarkdown() {
+
             var simplemde = new SimpleMDE({
                 autofocus: true,
-                autosave: {
-                    enabled: true,
-                    uniqueId: "MyUniqueID",
-                    delay: 1000,
-                },
+                //autosave: {
+                //    enabled: true,
+                //    uniqueId: "MyUniqueID",
+                //   delay: 1000,
+                //},
                 element: document.getElementById("MyID"),
                 placeholder: "Type here...",
                 renderingConfig: {
                     codeSyntaxHighlighting: true
-                }
+                },
+                toolbar: [
+                    "bold",
+                    // "italic",
+                    // "strikethrough",
+                    // "heading",
+                    "code",
+                    "quote",
+                    "unordered-list",
+                    "ordered-list",
+                    // "clean-block",
+                    "link",
+                    "image",
+                    "table",
+                    "horizontal-rule",
+                    // "preview",
+                    "side-by-side",
+                    "fullscreen",
+                    "guide",
+                    {
+                        name: "发布文章",//自定义按钮
+                        action: function customFunction(editor) {
+                            axios({
+                                method: 'post',
+                                url: '/write/update',
+                                data: {
+                                    id: config.currentArticleID,
+                                    markdown: editor.value(),
+                                    html: editor.markdown(editor.value()),
+                                },
+                            }).then(function (response) {
+                                layer.msg(response.data.message);
+                                var result = response.data.data
+                            }).catch(function (error) {
+                                layer.msg("创建失败");
+                            });
+                        },
+                        className: "fa fa-leanpub",
+                        title: "发布文章"
+                    }
+                ]
             });
-
+            config.mdInstance = simplemde
             return simplemde;
-
-            // console.log(simplemde.value())
-            // console.log(simplemde.markdown(simplemde.value()))
         }
 
-        function addHandleEvent(md) {
+        function addFormHandleEvent() {
             layui.use('form', function () {
                 var form = layui.form;
 
                 form.on('submit(FormOne)', function (data) {
                     var newData = Object.assign({}, data.field, {
-                        markdown: md.value(),
-                        html: md.markdown(md.value())
+                        markdown: config.mdInstance.value(),
+                        html: config.mdInstance.markdown(config.mdInstance.value())
                     })
 
                     axios({
@@ -151,6 +286,7 @@
                 });
 
 
+                // 新建文集
                 form.on('submit(submitCollect)', function (data) {
                     var newData = Object.assign({}, data.field, {
                         description: '',
@@ -170,6 +306,39 @@
                         }, 400);
 
                         $(".each-collect").append("<li class='layui-nav-item' ><a href = 'javascript:;' ><i class='layui-icon layui-icon-edit'></i> " + result.collectName + "</a ></li>")
+                    }).catch(function (error) {
+                        layer.msg("创建失败");
+                    });
+
+                    return false;
+                });
+
+                // 新建文章
+                form.on('submit(submitArticle)', function (data) {
+                    var newData = Object.assign({}, data.field, {
+                        markdown: config.mdInstance.value(),
+                        html: config.mdInstance.markdown(config.mdInstance.value()),
+                        collect: 'default',
+                    })
+
+                    axios({
+                        method: 'post',
+                        url: '/write/create',
+                        data: newData,
+                    }).then(function (response) {
+                        layer.msg(response.data.message);
+                        var result = response.data.data
+
+                        config.currentArticleID = result.WriteID;
+
+                        if (config.addArticlePos === 'header') {
+                            $(".each-article").prepend("<li><span>" + result.Title + "</span><i class='layui-icon layui-icon-set'></i></li>")
+                        }
+                        if (config.addArticlePos === 'footer') {
+                            $(".each-article").append("<li><span>" + result.Title + "</span><i class='layui-icon layui-icon-set'></i></li>")
+                        }
+
+                        document.querySelector(".layui-layer-close").click()
                     }).catch(function (error) {
                         layer.msg("创建失败");
                     });

@@ -1,26 +1,30 @@
 import { Controller, Get, Post, Body, Render, Redirect } from '@nestjs/common';
 import { CollectService } from './collect.service';
+import { WriteService } from '../write/write.service';
 import { CreateCollectDto } from './dto/collect.dto';
 
 @Controller('collect')
 export class CollectController {
-  constructor(private readonly collectService: CollectService) {}
+  constructor(
+    private readonly collectService: CollectService,
+    private readonly writeService: WriteService,
+  ) {}
 
   @Get()
-  @Render('write.hbs')
-  async renderCollect() {
-    const allCollects = await this.collectService.findAll();
-    return { allCollects };
-  }
-
-  @Get('/write')
   @Render('collectCreate.hbs')
   renderCreateCollect() {
     return '';
   }
 
+  @Get('/write')
+  @Render('write.hbs')
+  async renderCollect() {
+    const allCollects = await this.collectService.findAll();
+    const allArticles = await this.writeService.findAll();
+    return { allCollects, allArticles };
+  }
+
   @Post('/create')
-  @Redirect('')
   async createNewCollect(
     @Body()
     createCollect: CreateCollectDto,

@@ -7,17 +7,18 @@ import {
   readJSONSync,
 } from 'fs-extra';
 import * as path from 'path';
+import { CreateWriteDto, UpdateWriteDto } from './dto/write.dto';
 
 const STATIC_PATH = path.join(__dirname, `../../static`);
 
 @Controller('write')
 export class WriteController {
-  constructor(private readonly WriteService: WriteService) {}
+  constructor(private readonly writeService: WriteService) {}
 
   @Get()
   @Render('write.hbs')
   async root() {
-    let result = await this.WriteService.findAll();
+    let result = await this.writeService.findAll();
     return { title: '我是添加页面', message: '这里是person', result: result };
   }
 
@@ -25,14 +26,15 @@ export class WriteController {
   @Get('/all')
   @Render('articles.hbs')
   async findAll() {
-    const result = await this.WriteService.findAll();
+    const result = await this.writeService.findAll();
     return { title: '文章列表', lists: result };
   }
 
+  // 获取一个文章
   @Get('/:id')
   @Render('article.hbs')
-  async findById(@Param() params) {
-    const res = await this.WriteService.findById(params.id);
+  async renderById(@Param() params) {
+    const res = await this.writeService.findById(params.id);
 
     if (res && res.length > 0) {
       let result = res[0];
@@ -60,24 +62,66 @@ export class WriteController {
     }
   }
 
-  // 编写文章
+  // 获取一个文章数据
+  @Post('/article')
+  async findById(@Body() write: { id: number }) {
+    const res = await this.writeService.findById(write.id);
+
+    if (res && res.length > 0) {
+      let data = res[0];
+      const json = readJSONSync(data.SavePath);
+      data = Object.assign({}, data, {
+        markdown: json.markdown,
+        html: json.html,
+      });
+      return { code: 200, message: '获取成功', data };
+    } else {
+      return { code: 400, message: '获取失败', data: {} };
+    }
+  }
+
+  // 新建文章
   @Post('/create')
-  @Render('write.hbs')
-  async create(@Body() data: any) {
-    const DIR_PATH = path.join(STATIC_PATH, `/articles/${data.collect}`);
-    const FILE_PATH = path.join(DIR_PATH, `./${data.Title}.json`);
-    ensureDirSync(DIR_PATH);
-    ensureFileSync(FILE_PATH);
-    writeJsonSync(FILE_PATH, {
-      markdown: data.markdown,
-      html: data.html,
-    });
-
-    const newData = Object.assign(data, {
-      SavePath: FILE_PATH,
+  async create(@Body() createWrite: CreateWriteDto) {
+    const newData = Object.assign(createWrite, {
+      SavePath: '',
       CreateTime: Date.now(),
+      UpdateTime: Date.now(),
+      Tags: '',
+      collectID: 23,
+      collectName: 'default',
     });
+    const data = await this.writeService.create(newData);
+    return { code: 200, message: '创建成功', data };
+  }
 
-    return this.WriteService.create(newData);
+  // 更新或编辑文章
+  @Post('/update')
+  async updateWrite(@Body() updateWrite: UpdateWriteDto) {
+    const result = await this.writeService.findById(updateWrite.id);
+    let article = result[0];
+
+    if (article) {
+      const DIR_PATH = path.join(
+        STATIC_PATH,
+        `/articles/${article.collectName}`,
+      );
+      const FILE_PATH = path.join(DIR_PATH, `./${article.Title}.json`);
+      ensureDirSync(DIR_PATH);
+      ensureFileSync(FILE_PATH);
+
+      writeJsonSync(FILE_PATH, {
+        markdown: updateWrite.markdown,
+        html: updateWrite.html,
+      });
+
+      article.UpdateTime = Date.now() + '';
+      article.SavePath = FILE_PATH;
+
+      const data = await this.writeService.update(article);
+      return { code: 200, message: '更新成功', data };
+    } else {
+      return { code: 400, message: '更新失败', data: {} };
+    }
   }
 }
