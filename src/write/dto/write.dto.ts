@@ -12,7 +12,8 @@ export class WriteDto {
 
 export class CreateWriteDto {
   readonly Title: string;
-  readonly collect: string;
+  readonly collectName: string;
+  readonly collectID: number;
   readonly markdown: string;
   readonly html: string;
 }
@@ -21,4 +22,6 @@ export class UpdateWriteDto {
   readonly id: number;
   readonly markdown: string;
   readonly html: string;
+  readonly collectName: string;
+  readonly collectID: number;
 }

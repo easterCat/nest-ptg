@@ -94,11 +94,16 @@
 .markdown-area .editor-toolbar {
   border: none;
   border-radius: 0;
+  background-color: #fff;
+  border-bottom: 1px solid #d9d9d9;
 }
 .markdown-area .CodeMirror-fullscreen {
   border: 1px solid #ddd;
   border-radius: 0;
 }
 .markdown-area .editor-preview-side {
+  background-color: #fcfaf2;
+}
+.markdown-area .editor-preview {
   background-color: #fcfaf2;
 }

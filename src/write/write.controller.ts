@@ -118,6 +118,16 @@ export class WriteController {
       article.UpdateTime = Date.now() + '';
       article.SavePath = FILE_PATH;
 
+      if (updateWrite.collectName && updateWrite.collectName !== '') {
+        article.collectName = updateWrite.collectName;
+      }
+
+      if (updateWrite.collectID && updateWrite.collectID >= 0) {
+        article.collectID = updateWrite.collectID;
+      }
+
+      console.log('article :', article);
+
       const data = await this.writeService.update(article);
       return { code: 200, message: '更新成功', data };
     } else {

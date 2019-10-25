@@ -47,7 +47,7 @@
                 </div>
                 <ul class="layui-nav layui-nav-tree each-collect" lay-filter="test">
                     {{#each allCollects}}
-                    <li class="layui-nav-item">
+                    <li class="layui-nav-item" data-id={{id}} data-iname={{collectName}}>
                         <a href="javascript:;"><i class="layui-icon layui-icon-edit"></i>{{collectName}}</a>
                     </li>
                     {{/each}}
@@ -97,6 +97,7 @@
             addArticlePos: '',// header or footer 
             currentArticleID: undefined, // 当前选择的文章id
             currentCollectID: undefined, // 当前选择的文集id
+            currentCollectName: '', // 当前选择的文集名称
         }
 
         function init() {
@@ -113,10 +114,17 @@
                 var firstNode = $(".each-article li").eq(0)
                 config.currentArticleID = firstNode.data('id') || -1
                 firstNode.addClass('selected')
+                _requestArticleById(config.currentArticleID)
             }
+
             if (!config.currentCollectID) {
-                config.currentCollectID = $(".each-collect li").eq(0).data('id') || -1
+                var firstNode = $(".each-collect li").eq(0)
+                config.currentCollectID = firstNode.data('id') || -1
+                config.currentCollectName = firstNode.data('iname') || ''
+                firstNode.addClass("layui-this")
             }
+
+            console.log(config)
         }
 
         function addClickEvent() {
@@ -125,20 +133,26 @@
                 config.currentArticleID = id;
                 $(this).addClass('selected').siblings().removeClass("selected");
 
-                axios({
-                    method: 'post',
-                    url: '/write/article',
-                    data: { id },
-                }).then(function (response) {
-                    var value = response.data.data.markdown
-                    config.mdInstance.codemirror.setValue(value)
-                }).catch(function (error) {
-                    config.mdInstance.codemirror.setValue('')
-                });
+                _requestArticleById(id)
             })
             $(".each-collect").on('click', 'li', function (e) {
-                config.currentCollectID = $(this).data('id')
+                config.currentCollectID = $(this).data('id') || -1
+                config.currentCollectName = $(this).data('iname') || ''
             })
+        }
+
+        function _requestArticleById(id) {
+            // 获取单一的文章
+            return axios({
+                method: 'post',
+                url: '/write/article',
+                data: { id },
+            }).then(function (response) {
+                var value = response.data.data.markdown
+                config.mdInstance.codemirror.setValue(value)
+            }).catch(function (error) {
+                config.mdInstance.codemirror.setValue('')
+            });
         }
 
         function addLayuiElement() {
@@ -204,14 +218,13 @@
         }
 
         function addMarkdown() {
-
             var simplemde = new SimpleMDE({
                 autofocus: true,
-                //autosave: {
-                //    enabled: true,
-                //    uniqueId: "MyUniqueID",
-                //   delay: 1000,
-                //},
+                autosave: {
+                    enabled: true,
+                    uniqueId: "MyUniqueID",
+                    delay: 1000,
+                },
                 element: document.getElementById("MyID"),
                 placeholder: "Type here...",
                 renderingConfig: {
@@ -219,25 +232,23 @@
                 },
                 toolbar: [
                     "bold",
-                    // "italic",
-                    // "strikethrough",
-                    // "heading",
+                    "heading",
                     "code",
                     "quote",
                     "unordered-list",
                     "ordered-list",
-                    // "clean-block",
                     "link",
                     "image",
                     "table",
                     "horizontal-rule",
-                    // "preview",
+                    "preview",
                     "side-by-side",
                     "fullscreen",
                     "guide",
                     {
-                        name: "发布文章",//自定义按钮
+                        name: "发布文章",
                         action: function customFunction(editor) {
+                            // 更新或者编辑文章
                             axios({
                                 method: 'post',
                                 url: '/write/update',
@@ -245,6 +256,8 @@
                                     id: config.currentArticleID,
                                     markdown: editor.value(),
                                     html: editor.markdown(editor.value()),
+                                    collectID: Number(config.currentCollectID),
+                                    collectName: config.currentCollectName,
                                 },
                             }).then(function (response) {
                                 layer.msg(response.data.message);
@@ -256,8 +269,13 @@
                         className: "fa fa-leanpub",
                         title: "发布文章"
                     }
-                ]
+                ],
+                previewRender: function () {
+                    $(arguments[1]).addClass("markdown-body")
+                    return config.mdInstance.markdown(arguments[0])
+                }
             });
+            $(".editor-preview-side").addClass("markdown-body")
             config.mdInstance = simplemde
             return simplemde;
         }
@@ -318,7 +336,8 @@
                     var newData = Object.assign({}, data.field, {
                         markdown: config.mdInstance.value(),
                         html: config.mdInstance.markdown(config.mdInstance.value()),
-                        collect: 'default',
+                        collectID: Number(config.currentCollectID),
+                        collectName: config.currentCollectName,
                     })
 
                     axios({
