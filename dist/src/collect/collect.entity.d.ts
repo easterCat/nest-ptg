@@ -3,8 +3,8 @@ export declare class Collect {
     collectName: string;
     description: string;
     collectTags: string;
-    createTime: number;
-    updateTime: number;
+    createTime: string;
+    updateTime: string;
     articleIds: string;
     articleNum: number;
     imagePath: string;

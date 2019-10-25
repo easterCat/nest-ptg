@@ -1,0 +1,98 @@
+.markdown-container {
+  width: 100%;
+  margin: 0 auto;
+  z-index: 1001;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.collect-list {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #23262e;
+  color: #f2f2f2;
+  z-index: 100;
+}
+
+.collect-list .list-header {
+  padding: 20px 5px;
+}
+
+.collect-list .layui-nav-tree {
+  width: 100%;
+}
+
+.collect-list .layui-nav {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.collect-list .layui-colla-title {
+  background-color: rgba(0, 0, 0, 0);
+  color: #fff !important;
+}
+.collect-list .layui-collapse {
+  padding: 0 6px;
+  border: none;
+}
+.collect-list .layui-colla-content {
+  border: none;
+}
+
+.article-list {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #fff;
+  color: #666;
+  z-index: 100;
+  border-right: 1px solid #d9d9d9;
+}
+
+.article-list .list-header {
+  text-align: center;
+  padding: 10px;
+}
+
+.article-list .list-footer {
+  text-align: center;
+  padding: 10px;
+}
+.article-list > ul {
+  border-top: 1px solid #d9d9d9;
+}
+.article-list > ul > li {
+  display: flex;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 15px 10px;
+}
+.article-list > ul > li > span {
+  flex: 1;
+}
+.article-list > ul > li > i {
+  flex: 0 0 20px;
+}
+.markdown-area {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 100;
+}
+.markdown-area .CodeMirror {
+  padding: 60px 15px 15px 15px;
+  border: none;
+  border-radius: 0;
+}
+.markdown-area .editor-toolbar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
+  background: #fff;
+  z-index: 101;
+  border: none;
+  border-radius: 0;
+}

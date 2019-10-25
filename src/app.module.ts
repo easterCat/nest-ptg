@@ -10,7 +10,7 @@ import { CollectModule } from './collect/collect.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(), PersonModule, WriteModule, CollectModule],
-  controllers: [AppController, CollectController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {

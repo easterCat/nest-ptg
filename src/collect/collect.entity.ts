@@ -14,11 +14,11 @@ export class Collect {
   @Column({ length: 100 })
   collectTags: string;
 
-  @Column()
-  createTime: number;
+  @Column({ length: 30 })
+  createTime: string;
 
-  @Column()
-  updateTime: number;
+  @Column({ length: 30 })
+  updateTime: string;
 
   @Column({ length: 300 })
   articleIds: string;

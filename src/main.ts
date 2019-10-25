@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { join } from 'path';
-import * as handlebars from 'handlebars';
 import * as hbs from 'hbs';
 
 declare const module: any;
@@ -17,7 +16,9 @@ async function bootstrap() {
   app.setViewEngine('hbs');
   hbs.registerPartials(join(__dirname, '..', '/views/partials'));
 
-  await app.listen(6688);
+  await app.listen(6688, () => {
+    console.log('当前服务运行在localhost:6688');
+  });
 
   if (module.hot) {
     module.hot.accept();
