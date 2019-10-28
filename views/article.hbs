@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/public/styles/index.css" media="all">
     <link rel="stylesheet" href="/public/simpleMDE/simplemde.min.css">
     <link rel="stylesheet" href="/public/styles/github-markdown.css">
+    <link rel="stylesheet" href="/public/wangEditor/release/wangEditor.min.css">
 </head>
 
 <body>
@@ -18,25 +19,49 @@
         {{> header}}
 
         <div class="article-container">
-            <div class="container-left">
+            <div class="article-container-left">
                 {{> sideBar}}
             </div>
-            <div class="container-right">
+            <div class="article-container-right">
                 <div id="MD" class="markdown-body"></div>
+
+                <fieldset class="layui-elem-field layui-field-title"
+                    style="margin-top: 50px;margin-bottom:30px;text-align: center;">
+                    <legend>评论</legend>
+                </fieldset>
+                <div id="Editor" class="editor-arae"></div>
+                <button style="margin-top: 20px;margin-bottom:20px;" type="button" class="layui-btn">发布评论</button>
             </div>
         </div>
 
         <div id="hiddenText" class="hidden" style="display: none;">
             {{html}}
         </div>
+
     </div>
-    <script src="/public/layui/layui.js"></script>
-    <script src="/public/simpleMDE/simplemde.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <script src="/public/layui/layui.js" type="text/javascript"></script>
+    <script src="/public/simpleMDE/simplemde.min.js" type="text/javascript"></script>
+    <script src="/public/wangEditor/release/wangEditor.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js" type="text/javascript"></script>
     <script>
-        let html = document.getElementById("hiddenText").innerText || "";
-        document.getElementById("MD").innerHTML = html
+        init();
+        function init() {
+            insertText()
+            createEditor()
+        }
+
+        function insertText() {
+            let html = document.getElementById("hiddenText").innerText || "";
+            document.getElementById("MD").innerHTML = html
+        }
+
+        function createEditor() {
+            var E = window.wangEditor
+            var editor = new E('#Editor')
+            editor.create()
+        }
+
     </script>
 
 </html>

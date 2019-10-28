@@ -18,7 +18,7 @@ export class WriteController {
   @Get()
   @Render('write.hbs')
   async root() {
-    let result = await this.writeService.findAll();
+    const result = await this.writeService.findAll();
     return { title: '我是添加页面', message: '这里是person', result: result };
   }
 
@@ -30,14 +30,14 @@ export class WriteController {
     return { title: '文章列表', lists: result };
   }
 
-  // 获取一个文章
+  // 获取一个文章,并渲染
   @Get('/:id')
   @Render('article.hbs')
   async renderById(@Param() params) {
     const res = await this.writeService.findById(params.id);
 
     if (res && res.length > 0) {
-      let result = res[0];
+      const result = res[0];
       const json = readJSONSync(result.SavePath);
 
       return {
@@ -62,7 +62,7 @@ export class WriteController {
     }
   }
 
-  // 获取一个文章数据
+  // 获取一个文章数据,用来预览
   @Post('/article')
   async findById(@Body() write: { id: number }) {
     const res = await this.writeService.findById(write.id);
@@ -99,7 +99,7 @@ export class WriteController {
   @Post('/update')
   async updateWrite(@Body() updateWrite: UpdateWriteDto) {
     const result = await this.writeService.findById(updateWrite.id);
-    let article = result[0];
+    const article = result[0];
 
     if (article) {
       const DIR_PATH = path.join(
@@ -125,8 +125,6 @@ export class WriteController {
       if (updateWrite.collectID && updateWrite.collectID >= 0) {
         article.collectID = updateWrite.collectID;
       }
-
-      console.log('article :', article);
 
       const data = await this.writeService.update(article);
       return { code: 200, message: '更新成功', data };

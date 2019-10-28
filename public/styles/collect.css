@@ -1,5 +1,5 @@
 .collect-container {
-  padding-top: 20px;
+  padding-top: 70px;
   width: 1000px;
   margin: 0 auto;
   display: flex;
@@ -12,6 +12,7 @@
   width: 200px;
   background-color: #393d49;
   min-height: 500px;
+ 
 }
 
 .collect-container .container-right {

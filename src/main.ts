@@ -17,7 +17,7 @@ async function bootstrap() {
   hbs.registerPartials(join(__dirname, '..', '/views/partials'));
 
   await app.listen(6688, () => {
-    console.log('当前服务运行在localhost:6688');
+    console.log('当前服务运行在http://localhost:6688');
   });
 
   if (module.hot) {

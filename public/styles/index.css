@@ -1,13 +1,19 @@
 body {
-  background-color: #f9f9f9;
+  background-color: #f2f2f2;
 }
 
 .layui-header {
-  z-index: 1001;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10000;
+  width: 100%;
+  height: 60px;
+  border-radius: 0;
 }
 
 .container {
-  padding-top: 20px;
+  padding-top: 70px;
   width: 1000px;
   margin: 0 auto;
   display: flex;
@@ -19,6 +25,7 @@ body {
 .container-left {
   width: 200px;
   background-color: #393d49;
+  height: calc(100vh - 300px);
 }
 
 .container .container-right {
@@ -31,7 +38,7 @@ body {
 }
 
 .article-container {
-  padding-top: 20px;
+  padding-top: 70px;
   width: 1000px;
   margin: 0 auto;
   display: flex;
@@ -40,16 +47,27 @@ body {
   justify-content: space-around;
 }
 
-.article-container .container-right {
+.article-container .article-container-right {
   width: 790px;
   margin-left: 10px;
   background: #fff;
   padding: 15px;
+  margin-bottom: 50px;
+}
+.article-container .article-container-left {
+  width: 200px;
+  background-color: #393d49;
+  height: calc(100vh - 300px);
 }
 
 .article-lists {
   padding: 0 10px 10px 0;
 }
+
+.article-lists .layui-card {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.07);
+}
+
 .article-lists .layui-card-body {
   height: 100px;
   overflow: hidden;
