@@ -44,10 +44,6 @@ export declare class WriteController {
         code: number;
         message: string;
         data: import("./write.entity").Write;
-    } | {
-        code: number;
-        message: string;
-        data: {};
     }>;
     create(createWrite: CreateWriteDto): Promise<{
         code: number;

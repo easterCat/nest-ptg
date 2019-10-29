@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Render, Redirect } from '@nestjs/common';
 import { CollectService } from './collect.service';
-import { WriteService } from '../write/write.service';
+import { WriteService } from '../article/write.service';
 import { CreateCollectDto } from './dto/collect.dto';
 
 @Controller('collect')

@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { PersonModule } from './person/person.module';
-import { WriteModule } from './write/write.module';
+import { WriteModule } from './article/write.module';
 import { CollectController } from './collect/collect.controller';
 import { CollectModule } from './collect/collect.module';
 
