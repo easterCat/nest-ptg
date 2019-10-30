@@ -4,7 +4,7 @@ import { WriteService } from '../article/write.service';
 import { CreateCollectDto } from './dto/collect.dto';
 
 @Controller('collect')
-export class CollectController {
+export class CollectControllerRender {
   constructor(
     private readonly collectService: CollectService,
     private readonly writeService: WriteService,
