@@ -1,14 +1,10 @@
 import { Controller, Get, Post, Body, Render, Redirect } from '@nestjs/common';
 import { CollectService } from './collect.service';
-import { WriteService } from '../article/write.service';
 import { CreateCollectDto } from './dto/collect.dto';
 
 @Controller('/api/collect')
 export class CollectControllerApi {
-  constructor(
-    private readonly collectService: CollectService,
-    private readonly writeService: WriteService,
-  ) {}
+  constructor(private readonly collectService: CollectService) {}
 
   @Get('/all')
   async renderCollect() {

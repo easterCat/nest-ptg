@@ -3,6 +3,9 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { join } from 'path';
 import * as hbs from 'hbs';
+import * as ip from 'ip';
+
+const port = process.env.PORT || 6688;
 
 declare const module: any;
 
@@ -16,8 +19,16 @@ async function bootstrap() {
   app.setViewEngine('hbs');
   hbs.registerPartials(join(__dirname, '..', '/views/partials'));
 
-  await app.listen(6688, () => {
-    console.log('当前服务运行在http://localhost:6688');
+  // 开启跨域
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
+
+  await app.listen(port, () => {
+    console.log(
+      `当前服务运行在 \n http://localhost:${port} \n http://${ip.address()}:${port}`,
+    );
   });
 
   if (module.hot) {
