@@ -5,7 +5,7 @@ import { CollectControllerApi } from './collect.controller.api';
 import { CollectService } from './collect.service';
 import { WriteService } from '../article/write.service';
 import { Collect } from './entity/collect.entity';
-import { Write } from '../article/write.entity';
+import { Write } from '../article/entity/write.entity';
 
 @Module({
   imports: [

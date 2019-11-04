@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { join } from 'path';
 import * as hbs from 'hbs';
 import * as ip from 'ip';
+import * as cookieParser from 'cookie-parser';
 
 const port = process.env.PORT || 6688;
 
@@ -19,6 +20,8 @@ async function bootstrap() {
   app.setViewEngine('hbs');
   hbs.registerPartials(join(__dirname, '..', '/views/partials'));
 
+  // 中间件 - 解析cookies
+  app.use(cookieParser());
   // 开启跨域
   app.enableCors({
     origin: true,

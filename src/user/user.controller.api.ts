@@ -3,14 +3,17 @@ import {
   Get,
   Query,
   Redirect,
-  Response,
   Header,
-  Res,
+  Req,
   Param,
+  Post,
 } from '@nestjs/common';
 import * as request from 'request-promise';
 import { UserService } from './user.service';
 import { SessionService } from '../session/session.service';
+import { Request } from 'express';
+
+const sessionTime = 1000 * 60 * 60 * 24;
 
 @Controller('api/user')
 export class UserControllerApi {
@@ -21,17 +24,41 @@ export class UserControllerApi {
 
   @Get('login/:name')
   async login(@Param() paramData: { name: string }) {
-    const session = await this.sessionService.find(paramData.name);
+    const session = await this.sessionService.find({ name: paramData.name });
     const token = session.token;
     const user = await this.userService.findOneByName(paramData.name);
     const data = { ...user, token };
     return { code: 200, message: '登录成功', data };
   }
 
+  @Post('/logged')
+  async logged(@Req() req: Request) {
+    const session = await this.sessionService.find({
+      token: req.cookies['ptg-token'],
+    });
+    if (session) {
+      if (Number(session.createAt) - +new Date() > sessionTime) {
+        return { code: 400, messsage: '登录已过期', data: null };
+      }
+      const user = await this.userService.findOneByName(session.name);
+      if (user) {
+        return {
+          code: 200,
+          message: '已经登录',
+          data: { ...user, token: session.token },
+        };
+      } else {
+        return { code: 400, message: '用户不存在', data: null };
+      }
+    } else {
+      return { code: 400, message: '登录已过期', data: null };
+    }
+  }
+
   @Get('/oauth')
   @Header('Set-Cookie', 'sessionid=38afes7a8;HttpOnly;')
   @Redirect('/', 301)
-  async githubOauth(@Query() quertData: { code: string }, @Response() res) {
+  async githubOauth(@Query() quertData: { code: string }) {
     const ClientID = 'Iv1.59ce08097886630e';
     const ClientSecret = 'ff852c46b449001c9ee0bc2ea48c494b9a467c52';
     const config = {

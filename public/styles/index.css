@@ -13,24 +13,24 @@ body {
 }
 
 .container {
-  padding-top: 70px;
+  padding-top: 130px;
+  padding-bottom: 50px;
   width: 1000px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-around;
 }
 
 .container-left {
-  width: 200px;
-  background-color: #393d49;
-  height: calc(100vh - 300px);
+  box-sizing: border-box;
+  padding: 5px 10px;
 }
 
-.container .container-right {
-  width: 790px;
-  margin-left: 10px;
+.container-right {
+  box-sizing: border-box;
+  padding: 5px 10px;
+}
+
+.container-left .container-inner {
+  background: #fff;
 }
 
 .form-content {
@@ -47,28 +47,160 @@ body {
   justify-content: space-around;
 }
 
-.article-container .article-container-right {
-  width: 790px;
-  margin-left: 10px;
-  background: #fff;
-  padding: 15px;
-  margin-bottom: 50px;
-}
-.article-container .article-container-left {
-  width: 200px;
-  background-color: #393d49;
-  height: calc(100vh - 300px);
+.article-lists .article-item {
+  position: relative;
+  height: 45px;
+  line-height: 22px;
+  padding: 15px 15px 15px 75px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.07);
 }
 
-.article-lists {
-  padding: 0 10px 10px 0;
+.article-item img {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  display: block;
+  width: 45px;
+  height: 45px;
+  margin: 0;
+  border-radius: 2px;
+}
+.article-item .layer1 {
+  height: 25px;
+  line-height: 25px;
 }
 
-.article-lists .layui-card {
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.07);
+.article-item .layer1 .title {
+  float: left;
+  max-width: 80%;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333;
+}
+
+.article-item .layer1 .time {
+  float: left;
+  margin-left: 12px;
+  font-size: 13px;
+  color: #999;
+}
+
+.article-item .layer1 .tags {
+  float: right;
+}
+
+.article-item .layer1 a {
+  color: #fff;
+  border-radius: 2px;
+  font-size: 12px;
+}
+
+.article-item .layer2 {
+  height: 20px;
+  line-height: 20px;
+}
+
+.article-item .layer2 a {
+  display: inline-block;
+  max-width: 80%;
+  padding-right: 10px;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #999;
 }
 
 .article-lists .layui-card-body {
   height: 100px;
   overflow: hidden;
+}
+
+.panel {
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  height: 50px;
+  line-height: 50px;
+  position: fixed;
+  left: 0;
+  top: 60px;
+  z-index: 10000;
+  width: 100%;
+  height: 60px;
+  border-radius: 0;
+}
+
+.panel-title {
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 15px;
+  border-bottom: 1px dotted #e9e9e9;
+  color: #333;
+  border-radius: 2px 2px 0 0;
+  font-size: 14px;
+}
+
+.list-one {
+  margin-bottom: 15px;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.list-one .title {
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 15px;
+  border-bottom: 1px dotted #e9e9e9;
+  color: #333;
+  border-radius: 2px 2px 0 0;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.list-one a {
+  display: inline-block;
+  width: 100%;
+  margin: 0 15px;
+  line-height: 26px;
+  white-space: nowrap;
+  overflow: hidden;
+  list-style: decimal-leading-zero inside;
+  color: #009e94;
+  cursor: pointer;
+}
+.list-two {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 0 10px;
+}
+
+.list-two .title {
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 15px;
+  border-bottom: 1px dotted #e9e9e9;
+  color: #333;
+  border-radius: 2px 2px 0 0;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.list-two a {
+  display: inline-block;
+  line-height: 26px;
+  white-space: nowrap;
+  overflow: hidden;
+  list-style: decimal-leading-zero inside;
+  color: #009e94;
+  cursor: pointer;
 }

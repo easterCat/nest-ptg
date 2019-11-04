@@ -10,11 +10,20 @@ export class SessionService {
     private readonly sessionRepository: Repository<Session>,
   ) {}
 
-  async create(createData: any): Promise<Session> {
+  public async create(createData: any): Promise<Session> {
     return await this.sessionRepository.save(createData);
   }
 
-  async find(name: string): Promise<Session> {
-    return await this.sessionRepository.findOne({ name });
+  public async find(query: {
+    name?: string;
+    token?: string;
+  }): Promise<Session> {
+    console.log(query);
+    if (query.name && query.name !== '') {
+      return await this.sessionRepository.findOne({ name: query.name });
+    }
+    if (query.token && query.token !== '') {
+      return await this.sessionRepository.findOne({ token: query.token });
+    }
   }
 }

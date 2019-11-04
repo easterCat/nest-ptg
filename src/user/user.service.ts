@@ -11,24 +11,24 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(createUserData: any): Promise<User> {
+  public async create(createUserData: any): Promise<User> {
     return await this.userRepository.save(createUserData);
   }
 
-  async createToken(name: string): Promise<any> {
+  public async createToken(name: string): Promise<any> {
     const user: { name: string } = { name };
     return jwt.sign(user, 'secretKey', { expiresIn: 3600 });
   }
 
-  async findOneByName(name: string): Promise<User> {
+  public async findOneByName(name: string): Promise<User> {
     return await this.userRepository.findOne({ name });
   }
 
-  async validateUser(name: string): Promise<any> {
+  public async validateUser(name: string): Promise<any> {
     return await this.userRepository.findOne({ name });
   }
 
-  async login(name: string): Promise<any> {
+  public async login(name: string): Promise<any> {
     const user: any = await this.findOneByName(name);
     if (user !== undefined) {
       return this.createToken(user.name);

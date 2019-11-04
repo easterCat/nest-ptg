@@ -9,6 +9,8 @@ import {
 import * as path from 'path';
 import { CreateWriteDto, UpdateWriteDto } from './dto/write.dto';
 
+const mo = require('moment');
+
 const STATIC_PATH = path.join(__dirname, `../../static`);
 
 @Controller('render/write')
@@ -26,8 +28,12 @@ export class WriteControllerRender {
   @Get('/all')
   @Render('articles.hbs')
   async findAll() {
-    const result = await this.writeService.findAll();
-    return { title: '文章列表', lists: result };
+    let result = await this.writeService.findAll();
+    result = result.map(item => {
+      item.CreateTime = mo(Number(item.CreateTime || 0)).fromNow();
+      return item;
+    });
+    return { title: '文章列表', lists: result, hots: result.slice(0, 10) };
   }
 
   // 获取一个文章,并渲染
