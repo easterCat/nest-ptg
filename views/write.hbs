@@ -123,8 +123,6 @@
                 config.currentCollectName = firstNode.data('iname') || ''
                 firstNode.addClass("layui-this")
             }
-
-            console.log(config)
         }
 
         function addClickEvent() {
@@ -145,7 +143,7 @@
             // 获取单一的文章
             return axios({
                 method: 'post',
-                url: '/write/article',
+                url: '/api/article',
                 data: { id },
             }).then(function (response) {
                 var value = response.data.data.markdown
@@ -251,7 +249,7 @@
                             // 更新或者编辑文章
                             axios({
                                 method: 'post',
-                                url: '/write/update',
+                                url: '/api/article/update',
                                 data: {
                                     id: config.currentArticleID,
                                     markdown: editor.value(),
@@ -284,26 +282,6 @@
             layui.use('form', function () {
                 var form = layui.form;
 
-                form.on('submit(FormOne)', function (data) {
-                    var newData = Object.assign({}, data.field, {
-                        markdown: config.mdInstance.value(),
-                        html: config.mdInstance.markdown(config.mdInstance.value())
-                    })
-
-                    axios({
-                        method: 'post',
-                        url: '/write/create',
-                        data: newData,
-                    }).then(function (response) {
-                        layer.msg('创建成功');
-                    }).catch(function (error) {
-                        layer.msg("创建失败");
-                    });
-
-                    return false;
-                });
-
-
                 // 新建文集
                 form.on('submit(submitCollect)', function (data) {
                     var newData = Object.assign({}, data.field, {
@@ -313,7 +291,7 @@
 
                     axios({
                         method: 'post',
-                        url: '/collect/create',
+                        url: '/api/collect/create',
                         data: newData,
                     }).then(function (response) {
                         layer.msg(response.data.message);
@@ -342,7 +320,7 @@
 
                     axios({
                         method: 'post',
-                        url: '/write/create',
+                        url: '/api/article/create',
                         data: newData,
                     }).then(function (response) {
                         layer.msg(response.data.message);

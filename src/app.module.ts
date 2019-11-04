@@ -9,6 +9,7 @@ import { WriteModule } from './article/write.module';
 import { CollectModule } from './collect/collect.module';
 import { UserModule } from './user/user.module';
 import { SessionModule } from './session/session.module';
+import { StateModule } from './state/state.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { SessionModule } from './session/session.module';
     CollectModule,
     UserModule,
     SessionModule,
+    StateModule,
   ],
   controllers: [AppController],
   providers: [AppService],

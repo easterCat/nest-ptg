@@ -1,0 +1,33 @@
+.article-container-left {
+  box-sizing: border-box;
+  padding: 5px 10px;
+}
+.article-container-right {
+  box-sizing: border-box;
+  padding: 5px 10px;
+}
+
+.article-container-left .article-container-inner {
+  padding: 20px 10px;
+  background: #fff;
+}
+
+.article-container-right .quick {
+  min-height: 300px;
+  max-height: calc(100vh - 90px);
+  padding: 10px;
+  overflow: auto;
+}
+
+.article-container-right .quick > li {
+  height: 30px;
+  line-height: 30px;
+  color: #666;
+  list-style: disc;
+}
+
+.fix-300 {
+  position: fixed;
+  z-index: 9999;
+  top: 75px;
+}

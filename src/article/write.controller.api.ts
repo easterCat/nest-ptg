@@ -50,6 +50,28 @@ export class WriteControllerApi {
     }
   }
 
+  // 获取一个文章数据,用来预览
+  @Post('')
+  async findByIdPost(@Body() write: { id: number }) {
+    const res = await this.writeService.findById(write.id);
+
+    if (res && res.length > 0) {
+      let data = res[0];
+      const json = readJSONSync(data.SavePath);
+      data = Object.assign({}, data, {
+        markdown: json.markdown,
+        html: json.html,
+      });
+      return { code: 200, message: '获取成功', data };
+    } else {
+      return {
+        code: 400,
+        message: '获取失败',
+        data: null,
+      };
+    }
+  }
+
   // 新建文章
   @Post('/create')
   async create(@Body() createWrite: CreateWriteDto) {

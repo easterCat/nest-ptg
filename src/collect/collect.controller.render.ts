@@ -1,9 +1,8 @@
-import { Controller, Get, Post, Body, Render, Redirect } from '@nestjs/common';
+import { Controller, Get, Render } from '@nestjs/common';
 import { CollectService } from './collect.service';
 import { WriteService } from '../article/write.service';
-import { CreateCollectDto } from './dto/collect.dto';
 
-@Controller('collect')
+@Controller('/render/collect')
 export class CollectControllerRender {
   constructor(
     private readonly collectService: CollectService,
@@ -22,25 +21,5 @@ export class CollectControllerRender {
     const allCollects = await this.collectService.findAll();
     const allArticles = await this.writeService.findAll();
     return { allCollects, allArticles };
-  }
-
-  @Post('/create')
-  async createNewCollect(
-    @Body()
-    createCollect: CreateCollectDto,
-  ) {
-    const body = Object.assign(
-      {},
-      { ...createCollect },
-      {
-        createTime: +new Date(),
-        updateTime: +new Date(),
-        imagePath: '',
-        articleIds: '',
-        articleNum: 0,
-      },
-    );
-    const data = await this.collectService.create(body);
-    return { code: 200, message: '创建成功', data };
   }
 }

@@ -13,10 +13,34 @@ body {
 }
 
 .container {
-  padding-top: 130px;
+  margin-top: 130px;
   padding-bottom: 50px;
   width: 1000px;
   margin: 0 auto;
+}
+
+.state-container {
+  position: relative;
+  width: 1000px;
+  background: #fff;
+  margin: 0 auto;
+  margin-top: 70px;
+  padding: 20px;
+  padding-bottom: 50px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.state-container .layui-timeline-content {
+  cursor: pointer;
+}
+
+.layui-timeline-item .layui-btn {
+  display: none;
+  margin-left: 20px;
+}
+
+.show-btn .layui-btn {
+  display: inline-block;
 }
 
 .container-left {
@@ -180,7 +204,9 @@ body {
   border-radius: 2px;
   background-color: #fff;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  padding: 0 10px;
+}
+.list-two .article-item {
+  padding: 3px;
 }
 
 .list-two .title {
@@ -193,6 +219,9 @@ body {
   border-radius: 2px 2px 0 0;
   font-size: 14px;
   margin-bottom: 5px;
+}
+.list-two .tags {
+  padding: 10px 15px;
 }
 
 .list-two a {

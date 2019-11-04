@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Render, Redirect } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { CollectService } from './collect.service';
 import { CreateCollectDto } from './dto/collect.dto';
 
