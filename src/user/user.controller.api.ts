@@ -56,18 +56,17 @@ export class UserControllerApi {
   }
 
   @Get('/oauth')
-  @Header('Set-Cookie', 'sessionid=38afes7a8;HttpOnly;')
   @Redirect('/', 301)
-  async githubOauth(@Query() quertData: { code: string }) {
+  async githubOauth(@Query() queryData: { code: string }) {
     const ClientID = 'Iv1.59ce08097886630e';
-    const ClientSecret = 'ff852c46b449001c9ee0bc2ea48c494b9a467c52';
+    const ClientSecret = 'e0272412365d8f63e5468c78a3306e1b2fb8da33';
     const config = {
       method: 'post',
       uri:
         'http://github.com/login/oauth/access_token?' +
         `client_id=${ClientID}&` +
         `client_secret=${ClientSecret}&` +
-        `code=${quertData.code}`,
+        `code=${queryData.code}`,
       headers: {
         'Content-Type': 'application/json',
         accept: 'application/json',
@@ -85,9 +84,7 @@ export class UserControllerApi {
     };
     const user: string = (await asyncRequest(githubConfig)) as string;
     const parseUser = JSON.parse(user);
-
     const find = await this.userService.validateUser(parseUser.name);
-
     if (!find && parseUser.name !== '') {
       await this.userService.create({
         login: parseUser.login,
@@ -97,9 +94,7 @@ export class UserControllerApi {
         updatedAt: parseUser.updated_at,
       });
     }
-
     const loginStatus = await this.userService.login(parseUser.name);
-
     await this.sessionService.create({
       token: loginStatus,
       createAt: +Date.now(),

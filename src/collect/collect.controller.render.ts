@@ -20,6 +20,6 @@ export class CollectControllerRender {
   async renderCollect() {
     const allCollects = await this.collectService.findAll();
     const allArticles = await this.writeService.findAll();
-    return { allCollects, allArticles };
+    return { title: '文章列表', allCollects, allArticles };
   }
 }
