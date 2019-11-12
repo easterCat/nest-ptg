@@ -22,7 +22,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "674bd22eafc8f8f81c46";
+/******/ 	var hotCurrentHash = "d2bd8b97d9d3070a8729";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -796,7 +796,7 @@ eval("/* WEBPACK VAR INJECTION */(function(__resourceQuery) {/*\n\tMIT License h
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nvar __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nvar __metadata = (this && this.__metadata) || function (k, v) {\n    if (typeof Reflect === \"object\" && typeof Reflect.metadata === \"function\") return Reflect.metadata(k, v);\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst common_1 = __webpack_require__(/*! @nestjs/common */ \"@nestjs/common\");\nlet AppController = class AppController {\n    root() {\n        return { title: '我是首页' };\n    }\n};\n__decorate([\n    common_1.Get(),\n    common_1.Render('collects.hbs'),\n    __metadata(\"design:type\", Function),\n    __metadata(\"design:paramtypes\", []),\n    __metadata(\"design:returntype\", void 0)\n], AppController.prototype, \"root\", null);\nAppController = __decorate([\n    common_1.Controller()\n], AppController);\nexports.AppController = AppController;\n\n\n//# sourceURL=webpack:///./src/app.controller.ts?");
+eval("\nvar __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nvar __metadata = (this && this.__metadata) || function (k, v) {\n    if (typeof Reflect === \"object\" && typeof Reflect.metadata === \"function\") return Reflect.metadata(k, v);\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst common_1 = __webpack_require__(/*! @nestjs/common */ \"@nestjs/common\");\nlet AppController = class AppController {\n    async root() {\n        return { title: '我是首页' };\n    }\n};\n__decorate([\n    common_1.Get(),\n    common_1.Redirect('/render/write/all'),\n    __metadata(\"design:type\", Function),\n    __metadata(\"design:paramtypes\", []),\n    __metadata(\"design:returntype\", Promise)\n], AppController.prototype, \"root\", null);\nAppController = __decorate([\n    common_1.Controller()\n], AppController);\nexports.AppController = AppController;\n\n\n//# sourceURL=webpack:///./src/app.controller.ts?");
 
 /***/ }),
 
@@ -808,7 +808,7 @@ eval("\nvar __decorate = (this && this.__decorate) || function (decorators, targ
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nvar __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nvar __metadata = (this && this.__metadata) || function (k, v) {\n    if (typeof Reflect === \"object\" && typeof Reflect.metadata === \"function\") return Reflect.metadata(k, v);\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst common_1 = __webpack_require__(/*! @nestjs/common */ \"@nestjs/common\");\nconst app_controller_1 = __webpack_require__(/*! ./app.controller */ \"./src/app.controller.ts\");\nconst app_service_1 = __webpack_require__(/*! ./app.service */ \"./src/app.service.ts\");\nconst typeorm_1 = __webpack_require__(/*! @nestjs/typeorm */ \"@nestjs/typeorm\");\nconst typeorm_2 = __webpack_require__(/*! typeorm */ \"typeorm\");\nconst person_module_1 = __webpack_require__(/*! ./person/person.module */ \"./src/person/person.module.ts\");\nconst write_module_1 = __webpack_require__(/*! ./article/write.module */ \"./src/article/write.module.ts\");\nconst collect_module_1 = __webpack_require__(/*! ./collect/collect.module */ \"./src/collect/collect.module.ts\");\nconst user_module_1 = __webpack_require__(/*! ./user/user.module */ \"./src/user/user.module.ts\");\nconst session_module_1 = __webpack_require__(/*! ./session/session.module */ \"./src/session/session.module.ts\");\nconst state_module_1 = __webpack_require__(/*! ./state/state.module */ \"./src/state/state.module.ts\");\nlet AppModule = class AppModule {\n    constructor(connection) {\n        this.connection = connection;\n    }\n};\nAppModule = __decorate([\n    common_1.Module({\n        imports: [\n            typeorm_1.TypeOrmModule.forRoot(),\n            person_module_1.PersonModule,\n            write_module_1.WriteModule,\n            collect_module_1.CollectModule,\n            user_module_1.UserModule,\n            session_module_1.SessionModule,\n            state_module_1.StateModule,\n        ],\n        controllers: [app_controller_1.AppController],\n        providers: [app_service_1.AppService],\n    }),\n    __metadata(\"design:paramtypes\", [typeorm_2.Connection])\n], AppModule);\nexports.AppModule = AppModule;\n\n\n//# sourceURL=webpack:///./src/app.module.ts?");
+eval("\nvar __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nvar __metadata = (this && this.__metadata) || function (k, v) {\n    if (typeof Reflect === \"object\" && typeof Reflect.metadata === \"function\") return Reflect.metadata(k, v);\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst common_1 = __webpack_require__(/*! @nestjs/common */ \"@nestjs/common\");\nconst app_controller_1 = __webpack_require__(/*! ./app.controller */ \"./src/app.controller.ts\");\nconst app_service_1 = __webpack_require__(/*! ./app.service */ \"./src/app.service.ts\");\nconst typeorm_1 = __webpack_require__(/*! @nestjs/typeorm */ \"@nestjs/typeorm\");\nconst typeorm_2 = __webpack_require__(/*! typeorm */ \"typeorm\");\nconst person_module_1 = __webpack_require__(/*! ./person/person.module */ \"./src/person/person.module.ts\");\nconst write_module_1 = __webpack_require__(/*! ./article/write.module */ \"./src/article/write.module.ts\");\nconst collect_module_1 = __webpack_require__(/*! ./collect/collect.module */ \"./src/collect/collect.module.ts\");\nconst user_module_1 = __webpack_require__(/*! ./user/user.module */ \"./src/user/user.module.ts\");\nconst session_module_1 = __webpack_require__(/*! ./session/session.module */ \"./src/session/session.module.ts\");\nconst state_module_1 = __webpack_require__(/*! ./state/state.module */ \"./src/state/state.module.ts\");\nconst upload_module_1 = __webpack_require__(/*! ./upload/upload.module */ \"./src/upload/upload.module.ts\");\nconst image_module_1 = __webpack_require__(/*! ./image/image.module */ \"./src/image/image.module.ts\");\nlet AppModule = class AppModule {\n    constructor(connection) {\n        this.connection = connection;\n    }\n};\nAppModule = __decorate([\n    common_1.Module({\n        imports: [\n            typeorm_1.TypeOrmModule.forRoot(),\n            person_module_1.PersonModule,\n            write_module_1.WriteModule,\n            collect_module_1.CollectModule,\n            user_module_1.UserModule,\n            session_module_1.SessionModule,\n            state_module_1.StateModule,\n            upload_module_1.UploadModule,\n            image_module_1.ImageModule,\n        ],\n        controllers: [app_controller_1.AppController],\n        providers: [app_service_1.AppService],\n    }),\n    __metadata(\"design:paramtypes\", [typeorm_2.Connection])\n], AppModule);\nexports.AppModule = AppModule;\n\n\n//# sourceURL=webpack:///./src/app.module.ts?");
 
 /***/ }),
 
@@ -965,6 +965,42 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nclass 
 
 "use strict";
 eval("\nvar __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nvar __metadata = (this && this.__metadata) || function (k, v) {\n    if (typeof Reflect === \"object\" && typeof Reflect.metadata === \"function\") return Reflect.metadata(k, v);\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst typeorm_1 = __webpack_require__(/*! typeorm */ \"typeorm\");\nlet Collect = class Collect {\n};\n__decorate([\n    typeorm_1.PrimaryGeneratedColumn(),\n    __metadata(\"design:type\", Number)\n], Collect.prototype, \"id\", void 0);\n__decorate([\n    typeorm_1.Column({ length: 80 }),\n    __metadata(\"design:type\", String)\n], Collect.prototype, \"collectName\", void 0);\n__decorate([\n    typeorm_1.Column({ length: 300 }),\n    __metadata(\"design:type\", String)\n], Collect.prototype, \"description\", void 0);\n__decorate([\n    typeorm_1.Column({ length: 100 }),\n    __metadata(\"design:type\", String)\n], Collect.prototype, \"collectTags\", void 0);\n__decorate([\n    typeorm_1.Column({ length: 30 }),\n    __metadata(\"design:type\", String)\n], Collect.prototype, \"createTime\", void 0);\n__decorate([\n    typeorm_1.Column({ length: 30 }),\n    __metadata(\"design:type\", String)\n], Collect.prototype, \"updateTime\", void 0);\n__decorate([\n    typeorm_1.Column({ length: 300 }),\n    __metadata(\"design:type\", String)\n], Collect.prototype, \"articleIds\", void 0);\n__decorate([\n    typeorm_1.Column(),\n    __metadata(\"design:type\", Number)\n], Collect.prototype, \"articleNum\", void 0);\n__decorate([\n    typeorm_1.Column({ length: 120 }),\n    __metadata(\"design:type\", String)\n], Collect.prototype, \"imagePath\", void 0);\nCollect = __decorate([\n    typeorm_1.Entity()\n], Collect);\nexports.Collect = Collect;\n\n\n//# sourceURL=webpack:///./src/collect/entity/collect.entity.ts?");
+
+/***/ }),
+
+/***/ "./src/image/image.controller.ts":
+/*!***************************************!*\
+  !*** ./src/image/image.controller.ts ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nvar __metadata = (this && this.__metadata) || function (k, v) {\n    if (typeof Reflect === \"object\" && typeof Reflect.metadata === \"function\") return Reflect.metadata(k, v);\n};\nvar __param = (this && this.__param) || function (paramIndex, decorator) {\n    return function (target, key) { decorator(target, key, paramIndex); }\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst common_1 = __webpack_require__(/*! @nestjs/common */ \"@nestjs/common\");\nconst image_service_1 = __webpack_require__(/*! ./image.service */ \"./src/image/image.service.ts\");\nlet ImageController = class ImageController {\n    constructor(imageService) {\n        this.imageService = imageService;\n    }\n    async createImage(params, query) {\n        const result = await this.imageService.createImage(params, query);\n        return result;\n    }\n};\n__decorate([\n    common_1.Get(':wh/:color/:textcolor'),\n    __param(0, common_1.Param()),\n    __param(1, common_1.Query()),\n    __metadata(\"design:type\", Function),\n    __metadata(\"design:paramtypes\", [Object, Object]),\n    __metadata(\"design:returntype\", Promise)\n], ImageController.prototype, \"createImage\", null);\nImageController = __decorate([\n    common_1.Controller('/image'),\n    __metadata(\"design:paramtypes\", [image_service_1.ImageService])\n], ImageController);\nexports.ImageController = ImageController;\n\n\n//# sourceURL=webpack:///./src/image/image.controller.ts?");
+
+/***/ }),
+
+/***/ "./src/image/image.module.ts":
+/*!***********************************!*\
+  !*** ./src/image/image.module.ts ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst common_1 = __webpack_require__(/*! @nestjs/common */ \"@nestjs/common\");\nconst image_controller_1 = __webpack_require__(/*! ./image.controller */ \"./src/image/image.controller.ts\");\nconst image_service_1 = __webpack_require__(/*! ./image.service */ \"./src/image/image.service.ts\");\nlet ImageModule = class ImageModule {\n};\nImageModule = __decorate([\n    common_1.Module({\n        controllers: [image_controller_1.ImageController],\n        providers: [image_service_1.ImageService]\n    })\n], ImageModule);\nexports.ImageModule = ImageModule;\n\n\n//# sourceURL=webpack:///./src/image/image.module.ts?");
+
+/***/ }),
+
+/***/ "./src/image/image.service.ts":
+/*!************************************!*\
+  !*** ./src/image/image.service.ts ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("/* WEBPACK VAR INJECTION */(function(__dirname) {\nvar __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst common_1 = __webpack_require__(/*! @nestjs/common */ \"@nestjs/common\");\nconst canvas_1 = __webpack_require__(/*! canvas */ \"canvas\");\nconst fs = __webpack_require__(/*! fs */ \"fs\");\nconst path = __webpack_require__(/*! path */ \"path\");\nconst STATIC_PATH = path.join(__dirname, `../../static`);\nlet ImageService = class ImageService {\n    async createImage(params, query) {\n        const { wh, color, textcolor } = params;\n        const { text } = query;\n        const w = Number(wh.split('*')[0]);\n        const h = Number(wh.split('*')[1]);\n        const canvas = canvas_1.createCanvas(w, h);\n        const context = canvas.getContext('2d');\n        context.font = '16px \"Microsoft YaHei\"';\n        context.textBaseline = 'middle';\n        context.textAlign = 'center';\n        context.fillStyle = '#' + color;\n        context.fillRect(0, 0, w, h);\n        context.fillStyle = '#' + textcolor;\n        context.fillText(text || '不要太懒哦!', w / 2, h / 2);\n        const data = canvas.toDataURL('image/png');\n        const base64Img = data.replace(/^data:image\\/\\w+;base64,/, '');\n        const bufferImg = Buffer.from(base64Img, 'base64');\n        await write(path.join(STATIC_PATH, '/index.png'), bufferImg);\n        return data;\n    }\n};\nImageService = __decorate([\n    common_1.Injectable()\n], ImageService);\nexports.ImageService = ImageService;\nfunction write(filepath, bufferImg) {\n    return new Promise((resolve, reject) => {\n        fs.writeFile(filepath, bufferImg, error => {\n            if (error) {\n                reject(error);\n            }\n            resolve('success');\n        });\n    });\n}\n\n/* WEBPACK VAR INJECTION */}.call(this, \"/\"))\n\n//# sourceURL=webpack:///./src/image/image.service.ts?");
 
 /***/ }),
 
@@ -1136,6 +1172,42 @@ eval("\nvar __decorate = (this && this.__decorate) || function (decorators, targ
 
 /***/ }),
 
+/***/ "./src/upload/upload.controller.ts":
+/*!*****************************************!*\
+  !*** ./src/upload/upload.controller.ts ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst common_1 = __webpack_require__(/*! @nestjs/common */ \"@nestjs/common\");\nlet UploadController = class UploadController {\n};\nUploadController = __decorate([\n    common_1.Controller('upload')\n], UploadController);\nexports.UploadController = UploadController;\n\n\n//# sourceURL=webpack:///./src/upload/upload.controller.ts?");
+
+/***/ }),
+
+/***/ "./src/upload/upload.module.ts":
+/*!*************************************!*\
+  !*** ./src/upload/upload.module.ts ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst common_1 = __webpack_require__(/*! @nestjs/common */ \"@nestjs/common\");\nconst upload_controller_1 = __webpack_require__(/*! ./upload.controller */ \"./src/upload/upload.controller.ts\");\nconst upload_service_1 = __webpack_require__(/*! ./upload.service */ \"./src/upload/upload.service.ts\");\nlet UploadModule = class UploadModule {\n};\nUploadModule = __decorate([\n    common_1.Module({\n        controllers: [upload_controller_1.UploadController],\n        providers: [upload_service_1.UploadService]\n    })\n], UploadModule);\nexports.UploadModule = UploadModule;\n\n\n//# sourceURL=webpack:///./src/upload/upload.module.ts?");
+
+/***/ }),
+
+/***/ "./src/upload/upload.service.ts":
+/*!**************************************!*\
+  !*** ./src/upload/upload.service.ts ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst common_1 = __webpack_require__(/*! @nestjs/common */ \"@nestjs/common\");\nlet UploadService = class UploadService {\n};\nUploadService = __decorate([\n    common_1.Injectable()\n], UploadService);\nexports.UploadService = UploadService;\n\n\n//# sourceURL=webpack:///./src/upload/upload.service.ts?");
+
+/***/ }),
+
 /***/ "./src/user/entity/user.entity.ts":
 /*!****************************************!*\
   !*** ./src/user/entity/user.entity.ts ***!
@@ -1251,6 +1323,17 @@ eval("module.exports = require(\"@nestjs/typeorm\");\n\n//# sourceURL=webpack://
 
 /***/ }),
 
+/***/ "canvas":
+/*!*************************!*\
+  !*** external "canvas" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"canvas\");\n\n//# sourceURL=webpack:///external_%22canvas%22?");
+
+/***/ }),
+
 /***/ "cookie-parser":
 /*!********************************!*\
   !*** external "cookie-parser" ***!
@@ -1259,6 +1342,17 @@ eval("module.exports = require(\"@nestjs/typeorm\");\n\n//# sourceURL=webpack://
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"cookie-parser\");\n\n//# sourceURL=webpack:///external_%22cookie-parser%22?");
+
+/***/ }),
+
+/***/ "fs":
+/*!*********************!*\
+  !*** external "fs" ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"fs\");\n\n//# sourceURL=webpack:///external_%22fs%22?");
 
 /***/ }),
 

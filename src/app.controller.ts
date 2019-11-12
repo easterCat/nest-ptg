@@ -1,10 +1,10 @@
-import { Get, Controller, Render } from '@nestjs/common';
+import { Get, Controller, Render, Redirect } from '@nestjs/common';
 
 @Controller()
 export class AppController {
   @Get()
-  @Render('write.hbs')
-  root() {
+  @Redirect('/render/write/all')
+  async root() {
     return { title: '我是首页' };
   }
 }

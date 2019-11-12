@@ -9,6 +9,10 @@
   bottom: 0;
 }
 
+.inner-markdown-area li {
+  list-style-type: disc;
+}
+
 .collect-list {
   position: relative;
   height: 100%;

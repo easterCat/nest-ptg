@@ -10,6 +10,8 @@ import { CollectModule } from './collect/collect.module';
 import { UserModule } from './user/user.module';
 import { SessionModule } from './session/session.module';
 import { StateModule } from './state/state.module';
+import { UploadModule } from './upload/upload.module';
+import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { StateModule } from './state/state.module';
     UserModule,
     SessionModule,
     StateModule,
+    UploadModule,
+    ImageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
