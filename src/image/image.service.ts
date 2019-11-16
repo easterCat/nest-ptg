@@ -28,8 +28,11 @@ export class ImageService {
     const data = canvas.toDataURL('image/png');
     const base64Img = data.replace(/^data:image\/\w+;base64,/, '');
     const bufferImg = Buffer.from(base64Img, 'base64');
-    await write(path.join(STATIC_PATH, '/index.png'), bufferImg);
-    return data;
+    await write(path.join(STATIC_PATH, '/placehold.png'), bufferImg);
+    const content = fs.readFileSync(path.join(STATIC_PATH, '/placehold.png'), {
+      encoding: 'binary',
+    });
+    return content;
   }
 }
 
