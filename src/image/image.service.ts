@@ -1,13 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { createCanvas } from 'canvas';
-import * as fs from 'fs';
+import { createWriteStream, readFileSync, writeFile } from 'fs';
+import { config } from '../../global.config';
+import { ensureDirSync, ensureFileSync } from 'fs-extra';
 import * as path from 'path';
 
 const STATIC_PATH = path.join(__dirname, `../../static`);
 
 @Injectable()
 export class ImageService {
-  async createImage(
+  /**
+   * 创建占位图
+   * @param params
+   * @param query
+   */
+  public async createPlaceImage(
     params: { wh: string; color: string; textcolor: string },
     query: { text: string },
   ) {
@@ -29,16 +36,30 @@ export class ImageService {
     const base64Img = data.replace(/^data:image\/\w+;base64,/, '');
     const bufferImg = Buffer.from(base64Img, 'base64');
     await write(path.join(STATIC_PATH, '/placehold.png'), bufferImg);
-    const content = fs.readFileSync(path.join(STATIC_PATH, '/placehold.png'), {
+    const content = readFileSync(path.join(STATIC_PATH, '/placehold.png'), {
       encoding: 'binary',
     });
     return content;
+  }
+
+  /**
+   * 上传图片的方法
+   * @param image
+   */
+  public async uplodaImage(image: any) {
+    const DIR_PATH = path.join(config.static, './upload/images');
+    const FILE_PATH = path.join(DIR_PATH, `${image.originalname}`);
+    ensureDirSync(DIR_PATH);
+    ensureFileSync(FILE_PATH);
+    const writeImage = createWriteStream(FILE_PATH);
+    writeImage.write(image.buffer);
+    return `/static/upload/images/${image.originalname}`;
   }
 }
 
 function write(filepath: string, bufferImg: any) {
   return new Promise((resolve, reject) => {
-    fs.writeFile(filepath, bufferImg, error => {
+    writeFile(filepath, bufferImg, error => {
       if (error) {
         reject(error);
       }
