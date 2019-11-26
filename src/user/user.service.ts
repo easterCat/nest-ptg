@@ -3,6 +3,8 @@ import { User } from './entity/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
+import { config } from '../../global.config';
+import * as request from 'request-promise';
 
 @Injectable()
 export class UserService {
@@ -36,4 +38,48 @@ export class UserService {
       return 'login failed !';
     }
   }
+
+  public async assessToken(queryData: { code: string }): Promise<any> {
+    const ClientID = config.githubID;
+    const ClientSecret = config.githubSecret;
+    const options = {
+      method: 'post',
+      uri:
+        'http://github.com/login/oauth/access_token?' +
+        `client_id=${ClientID}&` +
+        `client_secret=${ClientSecret}&` +
+        `code=${queryData.code}`,
+      headers: {
+        'Content-Type': 'application/json',
+        accept: 'application/json',
+      },
+    };
+    const result: string = (await asyncRequest(options)) as string;
+    return JSON.parse(result);
+  }
+
+  public async getGithubUserInfo(parseResult: any): Promise<any> {
+    const githubConfig = {
+      method: 'get',
+      uri: `https://api.github.com/user`,
+      headers: {
+        Authorization: `token ${parseResult.access_token}`,
+        'User-Agent': 'easterCat',
+      },
+    };
+    const user: string = (await asyncRequest(githubConfig)) as string;
+    return JSON.parse(user);
+  }
+}
+
+function asyncRequest(options: any) {
+  return new Promise((resolve, reject) => {
+    request(options)
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
 }

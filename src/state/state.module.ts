@@ -5,6 +5,7 @@ import { StateControllerApi } from './state.controller.api';
 import { StateService } from './state.service';
 import { State } from './entity/state.entity';
 
+// 动态
 @Module({
   imports: [TypeOrmModule.forFeature([State])],
   controllers: [StateController, StateControllerApi],

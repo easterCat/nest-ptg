@@ -3,17 +3,15 @@ import {
   Get,
   Query,
   Redirect,
-  Header,
   Req,
   Param,
   Post,
 } from '@nestjs/common';
-import * as request from 'request-promise';
+
 import { UserService } from './user.service';
 import { SessionService } from '../session/session.service';
 import { Request } from 'express';
-
-const sessionTime = 1000 * 60 * 60 * 24;
+import { config } from '../../global.config';
 
 @Controller('api/user')
 export class UserControllerApi {
@@ -23,7 +21,7 @@ export class UserControllerApi {
   ) {}
 
   @Get('login/:name')
-  async login(@Param() paramData: { name: string }) {
+  public async login(@Param() paramData: { name: string }) {
     const session = await this.sessionService.find({ name: paramData.name });
     const token = session.token;
     const user = await this.userService.findOneByName(paramData.name);
@@ -32,12 +30,13 @@ export class UserControllerApi {
   }
 
   @Post('/logged')
-  async logged(@Req() req: Request) {
+  public async logged(@Req() req: Request) {
     const session = await this.sessionService.find({
       token: req.cookies['ptg-token'],
     });
+    console.log('session :', req.cookies['ptg-token']);
     if (session) {
-      if (Number(session.createAt) - +new Date() > sessionTime) {
+      if (Number(session.createAt) - +new Date() > config.sessionTime) {
         return { code: 400, messsage: '登录已过期', data: null };
       }
       const user = await this.userService.findOneByName(session.name);
@@ -57,34 +56,11 @@ export class UserControllerApi {
 
   @Get('/oauth')
   @Redirect('/', 301)
-  async githubOauth(@Query() queryData: { code: string }) {
-    const ClientID = 'Iv1.59ce08097886630e';
-    const ClientSecret = 'e0272412365d8f63e5468c78a3306e1b2fb8da33';
-    const config = {
-      method: 'post',
-      uri:
-        'http://github.com/login/oauth/access_token?' +
-        `client_id=${ClientID}&` +
-        `client_secret=${ClientSecret}&` +
-        `code=${queryData.code}`,
-      headers: {
-        'Content-Type': 'application/json',
-        accept: 'application/json',
-      },
-    };
-    const result: string = (await asyncRequest(config)) as string;
-    const parseResult = JSON.parse(result);
-    const githubConfig = {
-      method: 'get',
-      uri: `https://api.github.com/user`,
-      headers: {
-        Authorization: `token ${parseResult.access_token}`,
-        'User-Agent': 'easterCat',
-      },
-    };
-    const user: string = (await asyncRequest(githubConfig)) as string;
-    const parseUser = JSON.parse(user);
+  public async githubOauth(@Query() queryData: { code: string }) {
+    const parseResult = await this.userService.assessToken(queryData);
+    const parseUser = await this.userService.getGithubUserInfo(parseResult);
     const find = await this.userService.validateUser(parseUser.name);
+
     if (!find && parseUser.name !== '') {
       await this.userService.create({
         login: parseUser.login,
@@ -101,18 +77,6 @@ export class UserControllerApi {
       name: parseUser.name,
     });
 
-    return { url: `/logged?name=${parseUser.name}` };
+    return { url: `/render/user/logged?name=${parseUser.name}` };
   }
-}
-
-function asyncRequest(config) {
-  return new Promise((resolve, reject) => {
-    request(config)
-      .then(response => {
-        resolve(response);
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
 }

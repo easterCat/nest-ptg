@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>新建专栏</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/public/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/public/styles/index.css" media="all">
+    <link rel="stylesheet" href="/public/styles/common.css" media="all">
+    <link rel="stylesheet" href="/public/styles/collect.css" media="all">
+</head>
+
+<body>
+    <div class="layui-layout layui-layout-admin">
+        {{> header}}
+
+        <div class="create-container layui-row bg-white con">
+            <div class="container-right">
+                <div class="form-content layui-anim layui-anim-fadein">
+                    <button type="button" class="layui-btn layui-btn-lg layui-btn-normal login-btn">Github</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{> script}}
+    <script>
+
+        var deafault = {}
+
+        init();
+
+        function init() {
+            githubLogin()
+        }
+
+        function githubLogin() {
+            $(".login-btn").click(function () {
+                var CLIENT_ID = "Iv1.1acd14baff8e005f";
+                var REDIRECT_URL = "466ceb62920fd0cc3cc9a24b190b0fdf7604671b";
+                var url = "https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID + `&client_secret=${REDIRECT_URL}`;
+                window.location.href = url;
+            })
+        }
+    </script>
+
+</html>

@@ -78,10 +78,17 @@
             </div>
         </div>
     </div>
+    {{> script}}
     <script>
         layui.use('element', function () {
             var element = layui.element;
         });
+
+        init()
+
+        function init() {
+            logged()
+        }
     </script>
 
 </html>
