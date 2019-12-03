@@ -1,28 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Write } from './entity/write.entity';
-import { WriteDto } from './dto/write.dto';
+import { Article } from './entity/article.entity';
+import { ArticleDto } from './dto/article.dto';
 
 @Injectable()
 export class WriteService {
   constructor(
-    @InjectRepository(Write)
-    private readonly writeRepository: Repository<Write>,
+    @InjectRepository(Article)
+    private readonly writeRepository: Repository<Article>,
   ) {}
-  async create(createData: any): Promise<Write[]> {
+  async create(createData: any): Promise<Article[]> {
     return await this.writeRepository.save(createData);
   }
   async remove(id: string): Promise<any> {
     return await this.writeRepository.delete(id);
   }
-  async update(updateData: WriteDto): Promise<any> {
+  async update(updateData: ArticleDto): Promise<any> {
     return await this.writeRepository.save(updateData);
   }
-  async findAll(): Promise<Write[]> {
+  async findAll(): Promise<Article[]> {
+    // this.writeRepository => 'manager', 'metadata', 'queryRunner'
     return await this.writeRepository.find();
   }
-  async findById(id: string | number): Promise<Write[]> {
+  async findById(id: string | number): Promise<Article[]> {
     return await this.writeRepository.findByIds([id]);
+  }
+  async query(querySql: string): Promise<Article[]> {
+    return await this.writeRepository.query(querySql);
   }
 }

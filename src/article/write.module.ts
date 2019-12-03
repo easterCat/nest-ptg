@@ -3,10 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { WriteControllerApi } from './write.controller.api';
 import { WriteControllerRender } from './write.controller.render';
 import { WriteService } from './write.service';
-import { Write } from './entity/write.entity';
+import { Article } from './entity/article.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Write])],
+  imports: [TypeOrmModule.forFeature([Article])],
   controllers: [WriteControllerApi, WriteControllerRender],
   providers: [WriteService],
 })

@@ -20,7 +20,7 @@
 }
 
 .article-container-right .quick > li {
-  height: 30px;
+  min-height: 30px;
   line-height: 30px;
   color: #666;
   list-style: disc;

@@ -7,7 +7,7 @@ import {
   readJSONSync,
 } from 'fs-extra';
 import * as path from 'path';
-import { CreateWriteDto, UpdateWriteDto } from './dto/write.dto';
+import { CreateArticleDto, UpdateArticleDto } from './dto/article.dto';
 
 const STATIC_PATH = path.join(__dirname, `../../static`);
 
@@ -74,7 +74,7 @@ export class WriteControllerApi {
 
   // 新建文章
   @Post('/create')
-  async create(@Body() createWrite: CreateWriteDto) {
+  async create(@Body() createWrite: CreateArticleDto) {
     const newData = Object.assign(createWrite, {
       SavePath: '',
       CreateTime: Date.now(),
@@ -89,7 +89,7 @@ export class WriteControllerApi {
 
   // 更新或编辑文章
   @Post('/update')
-  async updateWrite(@Body() updateWrite: UpdateWriteDto) {
+  async updateWrite(@Body() updateWrite: UpdateArticleDto) {
     const result = await this.writeService.findById(updateWrite.id);
     const article = result[0];
 

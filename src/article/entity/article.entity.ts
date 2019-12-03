@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Write {
+export class Article {
   @PrimaryGeneratedColumn()
   WriteID: number;
 

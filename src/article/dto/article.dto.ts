@@ -1,4 +1,4 @@
-export class WriteDto {
+export class ArticleDto {
   readonly WriteID: number;
   readonly CreateTime: string;
   readonly UpdateTime: string;
@@ -10,7 +10,7 @@ export class WriteDto {
   readonly Tags: string;
 }
 
-export class CreateWriteDto {
+export class CreateArticleDto {
   readonly Title: string;
   readonly collectName: string;
   readonly collectID: number;
@@ -18,7 +18,7 @@ export class CreateWriteDto {
   readonly html: string;
 }
 
-export class UpdateWriteDto {
+export class UpdateArticleDto {
   readonly id: number;
   readonly markdown: string;
   readonly html: string;

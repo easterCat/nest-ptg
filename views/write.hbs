@@ -22,7 +22,7 @@
     <div class="layui-layout layui-layout-admin">
         <div class="layui-row markdown-container">
             {{!-- 新建文集 --}}
-            <div class=" layui-col-lg2 collect-list">
+            <div class=" layui-col-md2 collect-list">
                 <div class="list-header">
                     <button type="button" class="layui-btn  layui-btn-fluid"><a href="/render/write/all"
                             style="color:#fff">回到首页</a></button>
@@ -53,7 +53,7 @@
                 </ul>
             </div>
             {{!-- 新建文章 --}}
-            <div class="layui-col-lg2  article-list">
+            <div class="layui-col-md2  article-list">
                 <div class="list-header">
                     <button type="button" data-method="offset" data-type="auto"
                         class="layui-btn layui-btn-primary layui-btn-radius  layui-btn-fluid add-article">新增文章</button>
@@ -71,7 +71,7 @@
                 </div>
             </div>
             {{!-- 编辑markdown --}}
-            <div class="layui-col-lg8 markdown-area">
+            <div class="layui-col-md8 markdown-area">
                 <div class="inner-markdown-area">
                     <textarea name="MyID" id="MyID" cols="30" rows="10"></textarea>
                 </div>
@@ -100,27 +100,28 @@
         }
 
         function init() {
+            addMarkdown();
             initData();
             addClickEvent();
             addLayuiElement();
             addLayuiLayer();
-            addMarkdown();
             addFormHandleEvent(config.mdInstance);
         }
 
         function initData() {
-            if (!config.currentArticleID) {
-                var firstNode = $(".each-article li").eq(0)
-                config.currentArticleID = firstNode.data('id') || -1
-                firstNode.addClass('selected')
-                _requestArticleById(config.currentArticleID)
-            }
+            //if (!config.currentArticleID) {
+            //   var firstNode = $(".each-article li").eq(0)
+            //   config.currentArticleID = firstNode.data('id') || -1
+            //   firstNode.addClass('selected')
+            //    _requestArticleById(config.currentArticleID)
+            // }
 
             if (!config.currentCollectID) {
                 var firstNode = $(".each-collect li").eq(0)
                 config.currentCollectID = firstNode.data('id') || -1
                 config.currentCollectName = firstNode.data('iname') || ''
                 firstNode.addClass("layui-this")
+                _requestCollectById(config.currentCollectID)
             }
         }
 
@@ -129,12 +130,14 @@
                 var id = $(this).data('id') || -1
                 config.currentArticleID = id;
                 $(this).addClass('selected').siblings().removeClass("selected");
-
                 _requestArticleById(id)
             })
+
             $(".each-collect").on('click', 'li', function (e) {
-                config.currentCollectID = $(this).data('id') || -1
+                var id = $(this).data('id') || -1
+                config.currentCollectID = id
                 config.currentCollectName = $(this).data('iname') || ''
+                _requestCollectById(id)
             })
         }
 
@@ -147,6 +150,38 @@
             }).then(function (response) {
                 var value = response.data.data.markdown
                 config.mdInstance.codemirror.setValue(value)
+            }).catch(function (error) {
+                config.mdInstance.codemirror.setValue('')
+            });
+        }
+
+        function _requestCollectById(id) {
+            // 获取单一的文章
+            return axios({
+                method: 'post',
+                url: '/api/collect/info',
+                data: { id },
+            }).then(function (res) {
+                var data = res.data.data
+                var articles = data.articles
+                config.currentCollectID = id // 当前选择的文集id
+                config.currentCollectName = data.collectName // 当前选择的文集名称
+                $(".each-article").empty()
+                if (articles && articles.length > 0) {
+                    var cur = articles[0]
+                    var length = articles.length
+                    config.currentArticleID = cur.WriteID // 当前选择的文章id
+                    for (let i = 0; i < length; i++) {
+                        var index = articles[i]
+                        $(".each-article").prepend("<li data-id=" + index.WriteID + "><span>" + index.Title + "</span><i class='layui-icon layui-icon-set'></i></li>")
+                    }
+                    var firstNode = $(".each-article li").eq(0)
+                    firstNode.addClass('selected')
+                    _requestArticleById(cur.WriteID)
+                } else {
+                    config.currentArticleID = undefined;
+                    config.mdInstance.codemirror.setValue('')
+                }
             }).catch(function (error) {
                 config.mdInstance.codemirror.setValue('')
             });
@@ -324,14 +359,13 @@
                     }).then(function (response) {
                         layer.msg(response.data.message);
                         var result = response.data.data
-
                         config.currentArticleID = result.WriteID;
 
                         if (config.addArticlePos === 'header') {
-                            $(".each-article").prepend("<li><span>" + result.Title + "</span><i class='layui-icon layui-icon-set'></i></li>")
+                            $(".each-article").prepend("<li data-id=" + result.WriteID + "><span>" + result.Title + "</span><i class='layui-icon layui-icon-set'></i></li>")
                         }
                         if (config.addArticlePos === 'footer') {
-                            $(".each-article").append("<li><span>" + result.Title + "</span><i class='layui-icon layui-icon-set'></i></li>")
+                            $(".each-article").append("<li data-id=" + result.WriteID + "><span>" + result.Title + "</span><i class='layui-icon layui-icon-set'></i></li>")
                         }
 
                         document.querySelector(".layui-layer-close").click()

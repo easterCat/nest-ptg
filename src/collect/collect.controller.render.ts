@@ -19,7 +19,7 @@ export class CollectControllerRender {
   @Render('write.hbs')
   async renderCollect() {
     const allCollects = await this.collectService.findAll();
-    const allArticles = await this.writeService.findAll();
-    return { title: '文章列表', allCollects, allArticles };
+    // const allArticles = await this.writeService.findAll();
+    return { title: '文章列表', allCollects, allArticles: [] };
   }
 }
