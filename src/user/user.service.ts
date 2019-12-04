@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
 import { config } from '../../global.config';
 import * as request from 'request-promise';
+import * as moment from 'moment';
 
 @Injectable()
 export class UserService {
@@ -14,7 +15,12 @@ export class UserService {
   ) {}
 
   public async create(createUserData: any): Promise<User> {
-    return await this.userRepository.save(createUserData);
+    const assign = {
+      ...createUserData,
+      createdAt: moment().unix(),
+      updatedAt: moment().unix(),
+    };
+    return await this.userRepository.save(assign);
   }
 
   public async createToken(name: string): Promise<any> {

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { State } from './entity/state.entity';
-import * as mo from 'moment';
+import * as moment from 'moment';
 
 @Injectable()
 export class StateService {
@@ -12,9 +12,9 @@ export class StateService {
   ) {}
 
   public async create(body: any): Promise<State> {
-    const createData = { ...body, createAt: mo().unix() };
+    const createData = { ...body, createAt: moment().unix() };
     const result = await this.stateRepository.save(createData);
-    result.createTime = mo(result.createAt).format('YYYY-MM-DD H:mm:ss');
+    result.createTime = moment(result.createAt).format('YYYY-MM-DD H:mm:ss');
     return result;
   }
 
@@ -25,7 +25,7 @@ export class StateService {
       },
     });
     result = result.map((item: any) => {
-      item.createTime = mo
+      item.createTime = moment
         .unix(item.createAt || 0)
         .format('YYYY-MM-DD H:mm:ss');
       return item;

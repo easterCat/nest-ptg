@@ -14,9 +14,9 @@ export class User {
   @Column({ length: 40 })
   name: string;
 
-  @Column({ length: 30 })
-  createdAt: string;
+  @Column('int')
+  createdAt: number;
 
-  @Column({ length: 30 })
-  updatedAt: string;
+  @Column('int')
+  updatedAt: number;
 }
