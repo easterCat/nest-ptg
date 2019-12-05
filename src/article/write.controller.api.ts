@@ -80,8 +80,6 @@ export class WriteControllerApi {
       CreateTime: Date.now(),
       UpdateTime: Date.now(),
       Tags: '',
-      collectID: 23,
-      collectName: 'default',
     });
     const data = await this.writeService.create(newData);
     return { code: 200, message: '创建成功', data };
