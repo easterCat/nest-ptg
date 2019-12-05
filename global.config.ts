@@ -1,9 +1,7 @@
 import * as path from 'path';
 
 const webUrl =
-  process.env.NODE_ENV === 'development'
-    ? 'http://172.18.12.30:6776'
-    : '`http://111.231.138.132:6776';
+  process.env.NODE_ENV === 'development' ? 'http://172.18.12.30:6776' : '';
 
 export const config = {
   webUrl,
