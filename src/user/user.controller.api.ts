@@ -11,7 +11,7 @@ import {
 import { UserService } from './user.service';
 import { SessionService } from '../session/session.service';
 import { Request } from 'express';
-import { config } from '../../global.config';
+import config from '../../global.config';
 
 @Controller('api/user')
 export class UserControllerApi {

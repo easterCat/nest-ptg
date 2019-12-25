@@ -2,7 +2,7 @@ import { Controller, Get, Param, Render } from '@nestjs/common';
 import { UserService } from './user.service';
 import { SessionService } from '../session/session.service';
 
-@Controller('render/user')
+@Controller('')
 export class UserControllerRender {
   constructor(
     private readonly userService: UserService,

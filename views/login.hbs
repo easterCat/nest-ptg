@@ -38,8 +38,8 @@
 
         function login() {
             $(".login-btn").click(function () {
-                var CLIENT_ID = "Iv1.1acd14baff8e005f";
-                var REDIRECT_URL = "466ceb62920fd0cc3cc9a24b190b0fdf7604671b";
+                var CLIENT_ID = "Iv1.59ce08097886630e";
+                var REDIRECT_URL = "e0272412365d8f63e5468c78a3306e1b2fb8da33";
                 var url = "https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID + `&client_secret=${REDIRECT_URL}`;
                 window.location.href = url;
             })
@@ -73,10 +73,8 @@
                         url: '/collect/create',
                         data: newData,
                     }).then(function (response) {
-                        console.log(response);
                         layer.msg('创建成功');
                     }).catch(function (error) {
-                        console.log(error);
                         layer.msg("创建失败");
                     });
                     return false;

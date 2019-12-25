@@ -2,9 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { join } from 'path';
-import * as hbs from 'hbs';
-import * as ip from 'ip';
+import { registerPartials } from 'hbs';
+import { address } from 'ip';
 import * as cookieParser from 'cookie-parser';
+import { blue } from 'colors';
 
 const port = process.env.PORT || 6688;
 
@@ -21,7 +22,7 @@ async function bootstrap() {
   });
   app.setBaseViewsDir(join(__dirname, '..', '/views'));
   app.setViewEngine('hbs');
-  hbs.registerPartials(join(__dirname, '..', '/views/partials'));
+  registerPartials(join(__dirname, '..', '/views/partials'));
 
   // 中间件 - 解析cookies
   app.use(cookieParser());
@@ -33,7 +34,9 @@ async function bootstrap() {
 
   await app.listen(port, () => {
     console.log(
-      `当前服务运行在 \n http://localhost:${port} \n http://${ip.address()}:${port}`,
+      blue(
+        `当前服务运行在 \n http://localhost:${port} \n http://${address()}:${port}`,
+      ),
     );
   });
 

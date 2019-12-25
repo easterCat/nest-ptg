@@ -3,7 +3,7 @@ import { User } from './entity/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
-import { config } from '../../global.config';
+import config from '../../global.config';
 import * as request from 'request-promise';
 import * as moment from 'moment';
 

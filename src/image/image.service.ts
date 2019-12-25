@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { createCanvas } from 'canvas';
 import { createWriteStream, readFileSync, writeFile } from 'fs';
-import { config } from '../../global.config';
+import config from '../../global.config';
 import { ensureDirSync, ensureFileSync } from 'fs-extra';
 import * as path from 'path';
 

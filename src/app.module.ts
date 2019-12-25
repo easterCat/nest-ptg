@@ -12,6 +12,7 @@ import { SessionModule } from './session/session.module';
 import { StateModule } from './state/state.module';
 import { UploadModule } from './upload/upload.module';
 import { ImageModule } from './image/image.module';
+import { ProjectModule } from './project/project.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ImageModule } from './image/image.module';
     StateModule,
     UploadModule,
     ImageModule,
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [AppService],

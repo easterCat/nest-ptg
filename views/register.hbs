@@ -3,10 +3,22 @@
 
 <head>
     <meta charset="utf-8">
-    <title>新建专栏</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>注册</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="/public/img/fav.png">
+    <!-- Slick Slider -->
+    <link rel="stylesheet" type="text/css" href="/public/vendor/slick/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="/public/vendor/slick/slick-theme.min.css" />
+    <!-- Feather Icon-->
+    <link href="/public/vendor/icons/feather.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap core CSS -->
+    <link href="/public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/public/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="/public/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="/public/styles/index.css" media="all">
     <link rel="stylesheet" href="/public/styles/common.css" media="all">
@@ -15,21 +27,108 @@
 
 <body>
     <div class="layui-layout layui-layout-admin">
-        {{> header}}
-
-        <div class="create-container layui-row bg-white con">
+        <div class="bg-white">
+            <div class="container">
+                <div class="row justify-content-center align-items-center d-flex vh-100">
+                    <div class="col-md-4 mx-auto">
+                        <div class="osahan-login py-4">
+                            <div class="text-center mb-4">
+                                <a href="/register"><img src="/public/img/fav.png" alt="" /></a>
+                                <h5 class="font-weight-bold mt-3">注册账号</h5>
+                                <p class="text-muted">
+                                    记录你
+                                </p>
+                            </div>
+                            <form action="index.html">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="mb-1">First name</label>
+                                            <div class="position-relative icon-form-control">
+                                                <i class="feather-user position-absolute"></i>
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="mb-1">Last name</label>
+                                            <div class="position-relative icon-form-control">
+                                                <i class="feather-user position-absolute"></i>
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-1">邮箱</label>
+                                    <div class="position-relative icon-form-control">
+                                        <i class="feather-at-sign position-absolute"></i>
+                                        <input type="email" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-1">密码 (6个以上数字字母组合)</label>
+                                    <div class="position-relative icon-form-control">
+                                        <i class="feather-unlock position-absolute"></i>
+                                        <input type="password" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-1">是否同意我们使用Cookie政策。</label>
+                                </div>
+                                <button class="btn btn-primary btn-block text-uppercase" type="submit">
+                                    同意并注册
+                                </button>
+                                <div class="text-center mt-3 border-bottom pb-3">
+                                    <p class="small text-muted">第三方登录</p>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <button type="button" class="btn btn-sm btn-outline-instagram btn-block">
+                                                <i class="feather-instagram"></i> Google
+                                            </button>
+                                        </div>
+                                        <div class="col-4">
+                                            <button type="button" class="btn btn-sm btn-outline-linkedin btn-block">
+                                                <i class="feather-linkedin"></i> WeChat
+                                            </button>
+                                        </div>
+                                        <div class="col-4">
+                                            <button type="button" class="btn btn-sm btn-outline-github btn-block">
+                                                <i class="feather-facebook"></i> Github
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="py-3 d-flex align-item-center">
+                                    <a href="forgot-password.html">忘记密码</a>
+                                    <span class="ml-auto">
+                                        已有账号?
+                                        <a class="font-weight-bold" href="sign-in.html">登录</a></span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{!-- <div class="create-container layui-row bg-white con">
             <div class="container-right">
                 <div class="form-content layui-anim layui-anim-fadein">
                     <button type="button" class="layui-btn layui-btn-lg layui-btn-normal login-btn">Github</button>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="/public/vendor/jquery/jquery.min.js"></script>
+    <script src="/public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- slick Slider JS-->
+    <script type="text/javascript" src="/public/vendor/slick/slick.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/public/js/osahan.js"></script>
     {{> script}}
     <script>
-
-        var deafault = {}
-
         init();
 
         function init() {
@@ -37,13 +136,14 @@
         }
 
         function githubLogin() {
-            $(".login-btn").click(function () {
-                var CLIENT_ID = "Iv1.1acd14baff8e005f";
-                var REDIRECT_URL = "466ceb62920fd0cc3cc9a24b190b0fdf7604671b";
+            $(".btn-outline-github").click(function () {
+                var CLIENT_ID = "Iv1.59ce08097886630e";
+                var REDIRECT_URL = "e0272412365d8f63e5468c78a3306e1b2fb8da33";
                 var url = "https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID + `&client_secret=${REDIRECT_URL}`;
                 window.location.href = url;
             })
         }
     </script>
+
 
 </html>

@@ -1,22 +1,31 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'user' })
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  public id: number;
 
   @Column({ length: 40 })
-  login: string;
+  public login: string;
 
   @Column({ length: 100 })
-  avatarUrl: string;
+  public avatarUrl: string;
 
   @Column({ length: 40 })
-  name: string;
+  public name: string;
+
+  @Column({ length: 30 })
+  public firstName: string;
+
+  @Column({ length: 30 })
+  public lastName: string;
 
   @Column('int')
-  createdAt: number;
+  public createdAt: number;
 
   @Column('int')
-  updatedAt: number;
+  public updatedAt: number;
+
+  @Column({ length: 250, select: false, name: 'password' })
+  public passwordHash: string;
 }
