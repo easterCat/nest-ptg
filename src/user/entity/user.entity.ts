@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { ProjectEntity } from '../../project/project.entity';
 
 @Entity({ name: 'user' })
 export class User {
@@ -6,7 +7,7 @@ export class User {
   public id: number;
 
   @Column({ length: 40 })
-  public login: string;
+  public account: string;
 
   @Column({ length: 100 })
   public avatarUrl: string;
@@ -14,11 +15,8 @@ export class User {
   @Column({ length: 40 })
   public name: string;
 
-  @Column({ length: 30 })
-  public firstName: string;
-
-  @Column({ length: 30 })
-  public lastName: string;
+  @Column({ length: 40 })
+  public role: string;
 
   @Column('int')
   public createdAt: number;
@@ -26,6 +24,9 @@ export class User {
   @Column('int')
   public updatedAt: number;
 
-  @Column({ length: 250, select: false, name: 'password' })
-  public passwordHash: string;
+  @Column({ length: 250 })
+  public password: string;
+
+  @OneToMany(type => ProjectEntity, project => project.user)
+  public posts: ProjectEntity[];
 }

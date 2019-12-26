@@ -2,27 +2,8 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" href="/public/img/fav.png">
     <title>{{title}}</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!-- Slick Slider -->
-    <link rel="stylesheet" type="text/css" href="/public/vendor/slick/slick.min.css" />
-    <link rel="stylesheet" type="text/css" href="/public/vendor/slick/slick-theme.min.css" />
-    <!-- Feather Icon-->
-    <link href="/public/vendor/icons/feather.css" rel="stylesheet" type="text/css">
-    <!-- Bootstrap core CSS -->
-    <link href="/public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="/public/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="/public/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="/public/styles/index.css" media="all">
-    <link rel="stylesheet" href="/public/styles/common.css" media="all">
+    {{> meta}}
 </head>
 
 <body>
@@ -184,7 +165,7 @@
                                             class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
                                             <div class="overlap-rounded-circle d-flex">
                                                 <img class="rounded-circle shadow-sm" data-toggle="tooltip"
-                                                    data-placement="top" title="" src="/public/img/p13.png" alt=""
+                                                    data-placement="top" title="" src="/public/img/p13.jpg" alt=""
                                                     data-original-title="Sophia Lee">
                                                 <img class="rounded-circle shadow-sm" data-toggle="tooltip"
                                                     data-placement="top" title="" src="/public/img/p1.png" alt=""
@@ -227,7 +208,7 @@
                                                     data-placement="top" title="" src="/public/img/p12.png" alt=""
                                                     data-original-title="Sophia Lee">
                                                 <img class="rounded-circle shadow-sm" data-toggle="tooltip"
-                                                    data-placement="top" title="" src="/public/img/p13.png" alt=""
+                                                    data-placement="top" title="" src="/public/img/p13.jpg" alt=""
                                                     data-original-title="John Doe">
                                                 <img class="rounded-circle shadow-sm" data-toggle="tooltip"
                                                     data-placement="top" title="" src="/public/img/p2.png" alt=""
@@ -289,7 +270,7 @@
                 <aside class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
                     <div class="box mb-3 shadow-sm border rounded bg-white profile-box text-center">
                         <div class="py-4 px-3 border-bottom">
-                            <img src="/public/img/p13.png" class="img-fluid mt-2 rounded-circle" alt="Responsive image">
+                            <img src="/public/img/p13.jpg" class="img-fluid mt-2 rounded-circle" alt="Responsive image">
                             <h5 class="font-weight-bold text-dark mb-1 mt-4">Gurdeep Osahan</h5>
                             <p class="mb-0 text-muted">UI / UX Designer</p>
                         </div>
@@ -565,7 +546,7 @@
                                     <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
                                         <div class="overlap-rounded-circle">
                                             <img class="rounded-circle shadow-sm" data-toggle="tooltip"
-                                                data-placement="top" title="" src="/public/img/p13.png" alt=""
+                                                data-placement="top" title="" src="/public/img/p13.jpg" alt=""
                                                 data-original-title="Sophia Lee">
                                             <img class="rounded-circle shadow-sm" data-toggle="tooltip"
                                                 data-placement="top" title="" src="/public/img/p1.png" alt=""
@@ -588,14 +569,6 @@
             </div>
         </div>
     </div>
-    <script src="/public/layui/layui.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script src="/public/vendor/jquery/jquery.min.js"></script>
-    <script src="/public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- slick Slider JS-->
-    <script type="text/javascript" src="/public/vendor/slick/slick.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="/public/js/osahan.js"></script>
     {{> script}}
     <script>
         layui.use('element', function () {

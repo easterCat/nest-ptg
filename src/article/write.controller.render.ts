@@ -1,13 +1,16 @@
-import { Controller, Get, Render, Param } from '@nestjs/common';
+import { Controller, Get, UseGuards, Render, Param } from '@nestjs/common';
 import { WriteService } from './write.service';
+import { AuthGuard } from '@nestjs/passport';
 import { readJSONSync } from 'fs-extra';
 import * as mo from 'moment';
+import { Roles } from '../common/decorators/roles.decorator';
+import { RolesGuard } from '../core/guards/roles.guard';
 
-@Controller('render/write')
+@Controller('')
 export class WriteControllerRender {
   constructor(private readonly writeService: WriteService) {}
 
-  @Get()
+  @Get('/write')
   @Render('write.hbs')
   async root() {
     const result = await this.writeService.findAll();
@@ -15,7 +18,7 @@ export class WriteControllerRender {
   }
 
   // 查看文章
-  @Get('/all')
+  @Get('/home')
   @Render('articles.hbs')
   async findAll() {
     let result = await this.writeService.findAll();
@@ -27,7 +30,7 @@ export class WriteControllerRender {
   }
 
   // 获取一个文章,并渲染
-  @Get('/:id')
+  @Get('/article/:id')
   @Render('article.hbs')
   async renderById(@Param() params) {
     const res = await this.writeService.findById(params.id);

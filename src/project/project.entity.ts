@@ -10,14 +10,16 @@ import { User } from '../user/entity/user.entity';
 @Entity({ name: 'project' })
 export class ProjectEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  public id: number;
 
   @Column()
-  name: string;
+  public title: string;
 
   @Column()
-  description: string;
+  public content: string;
 
-  @ManyToOne(type => User)
-  user: User;
+  @ManyToOne(type => User, user => user.posts, {
+    onDelete: 'CASCADE',
+  })
+  public user: User;
 }

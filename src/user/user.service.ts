@@ -1,48 +1,126 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, OnModuleInit } from '@nestjs/common';
 import { User } from './entity/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as jwt from 'jsonwebtoken';
 import config from '../../global.config';
 import * as request from 'request-promise';
 import * as moment from 'moment';
+import { CryptoUtil } from '../common/utils/crypto.util';
 
 @Injectable()
-export class UserService {
+export class UserService implements OnModuleInit {
+  async onModuleInit() {
+    if (await this.findOneByAccount('admin')) {
+      return;
+    }
+    // 初始化系统管理员
+    const admin = this.userRepository.create({
+      account: 'admin',
+      password: this.cryptoUtil.encryptPassword('i_am_admin_!'),
+      name: '系统管理员',
+      role: 'admin',
+      avatarUrl: '',
+      createdAt: moment().unix(),
+      updatedAt: moment().unix(),
+    });
+    await this.userRepository.save(admin);
+  }
+
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly cryptoUtil: CryptoUtil,
   ) {}
 
-  public async create(createUserData: any): Promise<User> {
+  public async findAll(): Promise<User[]> {
+    return await this.userRepository.find();
+  }
+
+  public async register(createUserData: any): Promise<User> {
+    const user = await this.findOneByAccount(createUserData.account);
+    if (user) {
+      throw new HttpException('账号已存在', 409);
+    }
     const assign = {
       ...createUserData,
+      name: '系统管理员',
+      role: 'admin',
+      avatarUrl: '',
       createdAt: moment().unix(),
       updatedAt: moment().unix(),
+      password: this.cryptoUtil.encryptPassword(createUserData.password),
     };
     return await this.userRepository.save(assign);
   }
 
-  public async createToken(name: string): Promise<any> {
-    const user: { name: string } = { name };
-    return jwt.sign(user, 'secretKey', { expiresIn: 3600 });
+  /**
+   * 用户登录
+   * @param account 登录账号
+   * @param password 登录密码
+   */
+  public async login(account: string, password: string): Promise<User> {
+    const user = await this.findOneByAccount(account);
+    if (!user) {
+      throw new HttpException('登录账号有误', 406);
+    }
+    if (!this.cryptoUtil.checkPassword(password, user.password)) {
+      throw new HttpException('登录密码有误', 409);
+    }
+    return user;
   }
 
-  public async findOneByName(name: string): Promise<User> {
-    return await this.userRepository.findOne({ name });
+  /**
+   * 删除用户
+   * @param id 用户ID
+   */
+  public async remove(id: number): Promise<void> {
+    const existing = await this.userRepository.findOne(id);
+    if (!existing) {
+      throw new HttpException(`删除失败，ID 为 '${id}' 的用户不存在`, 404);
+    }
+    await this.userRepository.remove(existing);
+  }
+
+  /**
+   * 更新用户
+   * @param id 用户ID
+   * @param updateInput updateInput
+   */
+  public async update(id: number, updateInput: User) {
+    const existing = await this.userRepository.findOne(id);
+    if (!existing) {
+      throw new HttpException(`更新失败，ID 为 '${id}' 的用户不存在`, 404);
+    }
+    if (updateInput.account) {
+      existing.account = updateInput.account;
+    }
+    if (updateInput.password) {
+      existing.password = this.cryptoUtil.encryptPassword(updateInput.password);
+    }
+    if (updateInput.name) {
+      existing.name = updateInput.name;
+    }
+    return await this.userRepository.save(existing);
+  }
+
+  /**
+   * 通过登录账号查询用户
+   * @param account 登录账号
+   */
+  public async findOneByAccount(account: string): Promise<User> {
+    return await this.userRepository.findOne({ account });
+  }
+
+  /**
+   * 查询用户及其帖子的信息
+   * @param id 用户ID
+   */
+  public async findOneWithPostsById(id: number): Promise<User> {
+    return await this.userRepository.findOne(id, { relations: ['posts'] });
   }
 
   public async validateUser(name: string): Promise<any> {
     return await this.userRepository.findOne({ name });
-  }
-
-  public async login(name: string): Promise<any> {
-    const user: any = await this.findOneByName(name);
-    if (user !== undefined) {
-      return this.createToken(user.name);
-    } else {
-      return 'login failed !';
-    }
   }
 
   public async assessToken(queryData: { code: string }): Promise<any> {
