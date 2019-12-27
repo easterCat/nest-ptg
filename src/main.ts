@@ -21,14 +21,19 @@ async function bootstrap() {
   // 异常过滤器
   app.useGlobalFilters(new DispatchError());
 
+  // 设置public文件存放文件夹
   app.useStaticAssets(join(__dirname, '..', 'public'), {
     prefix: '/public/',
   });
+  // 设置静态文件存放文件夹
   app.useStaticAssets(join(__dirname, '..', 'static'), {
     prefix: '/static/',
   });
+  // 设置视图文件夹
   app.setBaseViewsDir(join(__dirname, '..', '/views'));
+  // 设置视图引擎
   app.setViewEngine('hbs');
+  // 设置视图部件的文件夹
   registerPartials(join(__dirname, '..', '/views/partials'));
 
   // 中间件 - 解析cookies
@@ -58,7 +63,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('back', app, document);
+  SwaggerModule.setup('swagger', app, document);
 
   await app.listen(port, () => {
     console.log(

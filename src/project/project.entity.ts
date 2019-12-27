@@ -22,4 +22,5 @@ export class ProjectEntity extends BaseEntity {
     onDelete: 'CASCADE',
   })
   public user: User;
+    createInput: Express.User;
 }

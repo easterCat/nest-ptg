@@ -19,7 +19,7 @@ export class WriteControllerRender {
 
   // 查看文章
   @Get('/home')
-  @Render('articles.hbs')
+  @Render('home.hbs')
   async findAll() {
     let result = await this.writeService.findAll();
     result = result.map(item => {

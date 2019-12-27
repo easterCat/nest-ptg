@@ -7,7 +7,7 @@
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
-    "dev": "export NODE_ENV=development && nodemon --watch ./src -e ts,tsx --exec ts-node -r tsconfig-paths/register ./src/main.ts",
+    "dev": "export NODE_ENV=development && nodemon",
     "start": "export NODE_ENV=production && ts-node -r tsconfig-paths/register ./src/main.ts",
     "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
     "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
@@ -20,17 +20,6 @@
     "lint": "tslint -p tsconfig.json -c tslint.json --fix",
     "webpack": "webpack --config webpack.config.js",
     "pm2": "pm2 start pm2.json"
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "dist/*",
-      "docs/*",
-      "node_modules/*",
-      "public/*",
-      "test/*",
-      "static/*"
-    ],
-    "delay": "2500"
   },
   "dependencies": {
     "@nestjs/common": "^6.7.2",
