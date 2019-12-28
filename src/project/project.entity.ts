@@ -18,9 +18,12 @@ export class ProjectEntity extends BaseEntity {
   @Column()
   public content: string;
 
+  @Column('int')
+  public createdAt: number;
+
   @ManyToOne(type => User, user => user.posts, {
     onDelete: 'CASCADE',
   })
   public user: User;
-    createInput: Express.User;
+  createInput: Express.User;
 }

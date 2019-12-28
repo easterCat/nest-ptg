@@ -17,8 +17,9 @@ import { IResult } from '../common/interfaces/result.interface';
 import { RolesGuard } from '../core/guards/roles.guard';
 import { ProjectEntity } from './project.entity';
 import { ProjectService } from './project.service';
+import moment = require('moment');
 
-@Controller('project')
+@Controller('api/project')
 export class ProjectController {
   constructor(
     @Inject(ProjectService) private readonly projectService: ProjectService,
@@ -30,7 +31,10 @@ export class ProjectController {
     @Req() req: Request,
     @Body() createInput: ProjectEntity,
   ): Promise<IResult> {
-    createInput = Object.assign({}, createInput, { user: req.user });
+    createInput = Object.assign({}, createInput, {
+      user: req.user,
+      createdAt: moment().unix(),
+    });
     await this.projectService.create(createInput);
     return { code: 200, message: '创建帖子成功' };
   }

@@ -42,8 +42,9 @@
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="w-100">
-                                        <textarea placeholder="Write your thoughts..."
-                                            class="form-control border-0 p-0 shadow-none" rows="1"></textarea>
+                                        <textarea placeholder="请输入评论内容..."
+                                            class="form-control border-0 p-0 shadow-none comment-textarea"
+                                            name="comment" rows="1"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -65,8 +66,7 @@
                                     Add
                                     Location</a></div>
                             <div class="flex-shrink-1">
-                                <button type="button" class="btn btn-light btn-sm">Preview</button>
-                                <button type="button" class="btn btn-primary btn-sm">Post Status</button>
+                                <button type="button" class="btn btn-primary btn-sm post-comment">提交评论</button>
                             </div>
                         </div>
                     </div>
@@ -571,14 +571,45 @@
     </div>
     {{> script}}
     <script>
-        layui.use('element', function () {
-            var element = layui.element;
-        });
-
         init()
 
         function init() {
-            logged()
+            comment();
+        }
+
+        function comment() {
+            layui.use('layer', function () {
+                var layer = layui.layer; //独立版的layer无需执行这一句
+                $(".post-comment").click(function (e) {
+                    e.preventDefault();
+                    var token = getCookie("token");
+                    axios({
+                        method: 'post',
+                        url: '/api/project',
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        },
+                        data: {
+                            title: "i am title",
+                            content: $("textarea[name='comment']").get(0).value,
+                        },
+                    }).then(function (response) {
+                        layer.msg('提交成功');
+                    }).catch(function (error) {
+                        layer.msg("提交失败");
+                    });
+                })
+            })
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
         }
     </script>
 

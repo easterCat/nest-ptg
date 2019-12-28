@@ -1,10 +1,8 @@
 .article-container-left {
   box-sizing: border-box;
-  padding: 5px 10px;
 }
 .article-container-right {
   box-sizing: border-box;
-  padding: 5px 10px;
 }
 
 .article-container-left .article-container-inner {
