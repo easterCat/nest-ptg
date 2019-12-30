@@ -57,7 +57,7 @@ async function bootstrap() {
 
   const options = new DocumentBuilder()
     .setTitle('平头哥')
-    .setDescription('后端api接口')
+    .setDescription('后端API接口文档')
     .setVersion('1.0')
     .addTag('nestjs')
     .build();

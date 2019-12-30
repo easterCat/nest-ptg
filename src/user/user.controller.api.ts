@@ -10,12 +10,11 @@ import {
   Delete,
   Put,
   UseGuards,
-  Res,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 import { SessionService } from '../session/session.service';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { Roles } from '../common/decorators/roles.decorator';
 import { IResult } from '../common/interfaces/result.interface';
 import { AuthService } from '../core/auth/auth.service';
