@@ -45,6 +45,7 @@
     "images": "^3.0.2",
     "ip": "^1.1.5",
     "jsonwebtoken": "^8.5.1",
+    "log4js": "^6.1.0",
     "moment": "^2.24.0",
     "mysql": "^2.17.1",
     "node-ip": "^0.1.2",
@@ -58,6 +59,7 @@
     "request-promise": "^4.2.4",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
+    "stacktrace-js": "^2.0.1",
     "svg2png": "^4.1.1",
     "typeorm": "^0.2.19"
   },

@@ -15,13 +15,15 @@ import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 import { SessionService } from '../session/session.service';
 import { Request } from 'express';
-import { Roles } from '../common/decorators/roles.decorator';
-import { IResult } from '../common/interfaces/result.interface';
+import { Roles } from '../core/decorators/roles.decorator';
+import { IResult } from '../core/interfaces/result.interface';
 import { AuthService } from '../core/auth/auth.service';
 import { RolesGuard } from '../core/guards/roles.guard';
 import { User } from './entity/user.entity';
+import { ApiTags } from '@nestjs/swagger';
 import config from '../../global.config';
 
+@ApiTags('用户账号')
 @Controller('api/user')
 export class UserControllerApi {
   constructor(
@@ -30,6 +32,7 @@ export class UserControllerApi {
     private readonly authService: AuthService,
   ) {}
 
+  @ApiTags('用户登录')
   @Post('login')
   public async login(@Body()
   loginData: {
@@ -53,10 +56,7 @@ export class UserControllerApi {
     return { code: 200, message: '登录成功', data };
   }
 
-  /**
-   * 用户注册
-   * @param user
-   */
+  @ApiTags('用户注册')
   @Post('register')
   public async register(@Body()
   user: {
@@ -76,6 +76,7 @@ export class UserControllerApi {
   //   return { code: 200, message: '登录成功', data };
   // }
 
+  @ApiTags('用户删除')
   @Delete(':id')
   @Roles('admin')
   @UseGuards(AuthGuard(), RolesGuard)
@@ -84,6 +85,7 @@ export class UserControllerApi {
     return { code: 200, message: '删除用户成功', data };
   }
 
+  @ApiTags('用户更新')
   @Put(':id')
   @Roles('admin')
   @UseGuards(AuthGuard(), RolesGuard)
@@ -92,12 +94,14 @@ export class UserControllerApi {
     return { code: 200, message: '更新用户成功', data };
   }
 
+  @ApiTags('查询用户')
   @Get(':id')
   async findOne(@Param() id: number): Promise<IResult> {
     const data = await this.userService.findOneWithPostsById(id);
     return { code: 200, message: '查询用户成功', data };
   }
 
+  @ApiTags('查询所有用户')
   @Get()
   @Roles('admin')
   @UseGuards(AuthGuard(), RolesGuard)
@@ -106,6 +110,7 @@ export class UserControllerApi {
     return { code: 200, message: '查询所有用户成功', data };
   }
 
+  @ApiTags('退出登录')
   @Post('/logged')
   public async logged(@Req() req: Request) {
     const session = await this.sessionService.find({

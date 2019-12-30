@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import config from '../../global.config';
 import * as request from 'request-promise';
 import * as moment from 'moment';
-import { CryptoUtil } from '../common/utils/crypto.util';
+import { CryptoUtil } from '../core/utils/crypto.util';
 
 @Injectable()
 export class UserService implements OnModuleInit {

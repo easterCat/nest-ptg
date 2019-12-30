@@ -7,7 +7,7 @@ import { UserService } from './user.service';
 import { User } from './entity/user.entity';
 import { Session } from '../session/entity/session.entity';
 import { SessionService } from '../session/session.service';
-import { CommonModule } from '../common/common.module';
+import { CommonModule } from '../core/common.module';
 import { AuthModule } from '../core/auth/auth.module';
 
 @Module({

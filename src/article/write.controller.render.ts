@@ -3,7 +3,7 @@ import { WriteService } from './write.service';
 import { AuthGuard } from '@nestjs/passport';
 import { readJSONSync } from 'fs-extra';
 import * as mo from 'moment';
-import { Roles } from '../common/decorators/roles.decorator';
+import { Roles } from '../core/decorators/roles.decorator';
 import { RolesGuard } from '../core/guards/roles.guard';
 
 @Controller('')

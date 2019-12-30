@@ -12,8 +12,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
-import { Roles } from '../common/decorators/roles.decorator';
-import { IResult } from '../common/interfaces/result.interface';
+import { Roles } from '../core/decorators/roles.decorator';
+import { IResult } from '../core/interfaces/result.interface';
 import { RolesGuard } from '../core/guards/roles.guard';
 import { ProjectEntity } from './project.entity';
 import { ProjectService } from './project.service';

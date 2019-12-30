@@ -1,6 +1,11 @@
 import { Request, Response } from 'express';
 
-// 全局中间件 - 跨域资源共享
+/**
+ * 全局中间件 - 跨域资源共享
+ * @param req
+ * @param res
+ * @param next
+ */
 export function corsMiddleware(req: Request, res: Response, next: () => void) {
   const origin = req.get('Origin');
   if (origin !== undefined) {
