@@ -1,8 +1,6 @@
-node_modules/
 node_modules
-dist/
 dist
-.history/
 .history
-.idea/
 .idea
+.vscode
+logs

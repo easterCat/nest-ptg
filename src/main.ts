@@ -22,15 +22,16 @@ async function bootstrap() {
     logger: false,
   });
 
-  addGlobal(app);
-  addEngine(app);
-  addMiddleware(app);
-  addSwagger(app);
-  // 开启跨域
-  app.enableCors({
-    origin: true,
-    credentials: true,
-  });
+  // console.log('app :', app);
+  // addGlobal(app);
+  // addEngine(app);
+  // addMiddleware(app);
+  // addSwagger(app);
+  // // 开启跨域
+  // app.enableCors({
+  //   origin: true,
+  //   credentials: true,
+  // });
 
   await app.listen(port, () => {
     console.log(
@@ -48,14 +49,14 @@ async function bootstrap() {
 
 bootstrap();
 
-function addGlobal(app) {
+function addGlobal(app: any) {
   // http错误异常过滤器
   app.useGlobalFilters(new HttpExceptionFilter());
   // 全局拦截器.优化返回数据
   // app.useGlobalInterceptors(new ResultInterceptor());
 }
 
-function addEngine(app) {
+function addEngine(app: any) {
   // 设置public文件存放文件夹
   app.useStaticAssets(join(__dirname, '..', 'public'), {
     prefix: '/public/',
@@ -72,7 +73,7 @@ function addEngine(app) {
   registerPartials(join(__dirname, '..', '/views/partials'));
 }
 
-function addMiddleware(app) {
+function addMiddleware(app: any) {
   // 中间件 - 解析cookies
   app.use(cookieParser());
   app.use(logger);
@@ -88,7 +89,7 @@ function addMiddleware(app) {
   app.use(passport.session());
 }
 
-function addSwagger(app) {
+function addSwagger(app: any) {
   const options = new DocumentBuilder()
     .setTitle('平头哥')
     .setDescription('后端API接口文档')

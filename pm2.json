@@ -1,6 +1,6 @@
 {
   "apps": {
-    "name": "nest-backstage-平头哥",
+    "name": "nest-backstage-ptg",
     "script": "npm",
     "cwd": "./",
     "args": "start",
