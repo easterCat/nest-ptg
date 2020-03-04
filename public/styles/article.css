@@ -1,8 +1,16 @@
+.article-container {
+  padding-top: 70px;
+  background: #fff;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
 .article-container-left {
-  box-sizing: border-box;
+  flex: 0 0 700px;
 }
 .article-container-right {
-  box-sizing: border-box;
+  flex: 0 0 300px;
 }
 
 .article-container-left .article-container-inner {
@@ -14,7 +22,7 @@
   min-height: 300px;
   max-height: calc(100vh - 90px);
   padding: 10px;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 .article-container-right .quick > li {
@@ -24,8 +32,24 @@
   list-style: disc;
 }
 
+.container-header {
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #808080;
+}
+.container-header .title {
+  flex: 0 0 40px;
+  width: 100%;
+  text-shadow: 0 0 40px black;
+  font-size: 36px;
+  color: #fff;
+  text-align: center;
+}
+
 .fix-300 {
   position: fixed;
   z-index: 9999;
-  top: 75px;
+  top: 55px;
 }

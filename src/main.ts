@@ -22,16 +22,15 @@ async function bootstrap() {
     logger: false,
   });
 
-  // console.log('app :', app);
-  // addGlobal(app);
-  // addEngine(app);
-  // addMiddleware(app);
-  // addSwagger(app);
-  // // 开启跨域
-  // app.enableCors({
-  //   origin: true,
-  //   credentials: true,
-  // });
+  addGlobal(app);
+  addEngine(app);
+  addMiddleware(app);
+  addSwagger(app);
+  // 开启跨域
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
 
   await app.listen(port, () => {
     console.log(
@@ -90,6 +89,7 @@ function addMiddleware(app: any) {
 }
 
 function addSwagger(app: any) {
+  // 配置swagger文档
   const options = new DocumentBuilder()
     .setTitle('平头哥')
     .setDescription('后端API接口文档')

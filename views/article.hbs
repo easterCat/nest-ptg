@@ -7,10 +7,14 @@
 </head>
 
 <body>
-    {{> header}}
+    {{> article_header}}
+    <div class="container-header">
+        <div class="title">
+            {{title}}
+        </div>
+    </div>
     <div class="article-container layui-row">
-        <div class="article-container-left layui-col-md8 layui-anim  box shadow-sm  rounded "
-            data-anim="layui-anim-upbit">
+        <div class="article-container-left layui-col-md8 layui-anim  box rounded " data-anim="layui-anim-upbit">
             <div class="article-container-inner">
                 <div id="MD" class="markdown-body"></div>
                 <fieldset class="layui-elem-field layui-field-title"
@@ -37,13 +41,18 @@
             window.onscroll = function () {
                 var top = document.documentElement.scrollTop;
 
-                if (top > 40) {
+                if (top > 100) {
+                    $(".navbar").hide()
+                }
+
+                if (top > 300) {
                     $(".quick").addClass("fix-300")
                 } else {
                     $(".quick").removeClass("fix-300")
+                    $(".navbar").show()
                 }
-
             }
+
             insertText()
             createEditor()
             quickLink()

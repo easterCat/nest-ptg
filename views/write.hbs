@@ -47,7 +47,13 @@
                 <ul class="layui-nav layui-nav-tree each-collect" lay-filter="test">
                     {{#each allCollects}}
                     <li class="layui-nav-item" data-id={{id}} data-iname={{collectName}}>
-                        <a href="javascript:;"><i class="layui-icon layui-icon-edit"></i>{{collectName}}</a>
+                        <div class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="layui-icon layui-icon-edit"></i>
+                                {{collectName}}
+                            </a>
+                        </div>
                     </li>
                     {{/each}}
                 </ul>
@@ -78,11 +84,7 @@
             </div>
         </div>
     </div>
-    <script src="/public/layui/layui.js"></script>
-    <script src="/public/simpleMDE/simplemde.min.js"></script>
-    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    {{> script}}
     <script>
         // http://jquery.cuishifeng.cn/ 
         // http://www.fontawesome.com.cn/faicons/
