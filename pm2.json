@@ -3,7 +3,7 @@
     "name": "nest-backstage-ptg",
     "script": "npm",
     "cwd": "./",
-    "args": "start",
+    "args": "start:prod",
     "error_file": "./logs/app-err.log",
     "out_file": "./logs/app-out.log",
     "merge_logs": true,

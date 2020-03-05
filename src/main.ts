@@ -75,7 +75,7 @@ function addEngine(app: any) {
 function addMiddleware(app: any) {
   // 中间件 - 解析cookies
   app.use(cookieParser());
-  app.use(logger);
+  // app.use(logger);
   app.use(
     session({
       secret: 'secret-key',
