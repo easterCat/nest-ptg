@@ -20,6 +20,8 @@ export class ArticleService {
       updateTime: Date.now() + '',
       savePath: '',
       description: '',
+      authorId: '',
+      authorName: '',
     });
   }
   public async remove(id: string): Promise<any> {
