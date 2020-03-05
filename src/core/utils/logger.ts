@@ -91,14 +91,14 @@ Log4js.addLayout('Awesome-nest', (logConfig: any) => {
 
 Log4js.configure({
   appenders: {
-    console: {
+    out: {
       type: 'stdout',
       layout: { type: 'Awesome-nest' },
     },
-    fileAppender: {
-      type: 'DateFile',
-      filename: './logs/prod.log',
-      pattern: '-yyyy-MM-dd.log',
+    app: {
+      type: 'dateFile',
+      filename: './logs/ptg.log',
+      pattern: '.yyyy-MM-dd-hh',
       alwaysIncludePattern: true,
       layout: { type: 'Flash' },
       daysToKeep: 60,
@@ -106,13 +106,13 @@ Log4js.configure({
   },
   categories: {
     default: {
-      appenders: ['console'],
+      appenders: ['out', 'app'],
       level: 'debug',
     },
   },
 });
 
-const logger = Log4js.getLogger();
+const logger = Log4js.getLogger('平头哥');
 logger.level = LoggerLevel.TRACE;
 
 export class Logger {
