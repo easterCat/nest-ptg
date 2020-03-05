@@ -11,10 +11,20 @@ import { SessionModule } from './modules/session.module';
 import { StateModule } from './modules/state.module';
 import { ImageModule } from './modules/image.module';
 import { ProjectModule } from './modules/project.module';
+import config from '../global.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: config.db.host,
+      port: config.db.port,
+      username: config.db.username,
+      password: config.db.password,
+      database: config.db.database,
+      entities: ['src/**/*.entity{.ts,.js}'],
+      synchronize: true,
+    }),
     UserModule,
     PersonModule,
     ArticleModule,

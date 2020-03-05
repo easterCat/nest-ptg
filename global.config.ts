@@ -3,6 +3,13 @@ import * as path from 'path';
 let webUrl: string;
 let githubID: string;
 let githubSecret: string;
+let db = {
+  host: '127.0.0.1',
+  port: 3306,
+  username: 'root',
+  password: '123456',
+  database: 'ks',
+};
 
 if (process.env.NODE_ENV === 'development') {
   webUrl = 'http://172.18.234.34:6688';
@@ -12,6 +19,14 @@ if (process.env.NODE_ENV === 'development') {
   webUrl = '';
   githubID = 'Iv1.1acd14baff8e005f';
   githubSecret = '466ceb62920fd0cc3cc9a24b190b0fdf7604671b';
+
+  db = {
+    host: '127.0.0.1',
+    port: 3306,
+    username: 'root',
+    password: 'Jp940612',
+    database: 'ks',
+  };
 }
 
 const config = {
@@ -21,6 +36,7 @@ const config = {
   base: path.join(__dirname, ''),
   static: path.join(__dirname, './static'),
   sessionTime: 1000 * 60 * 60 * 24, // 一天
+  db,
 };
 
 export default config;
