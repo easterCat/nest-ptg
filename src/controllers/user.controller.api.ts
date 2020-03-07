@@ -4,12 +4,13 @@ import {
   Query,
   Redirect,
   Param,
-  Req,
   Post,
   Body,
   Delete,
   Put,
   UseGuards,
+  UnauthorizedException,
+  NotFoundException,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from '../services/user.service';
@@ -68,11 +69,13 @@ export class UserControllerApi {
 
   @ApiTags('用户注册')
   @Post('register')
-  public async register(@Body()
-  user: {
-    account: string;
-    password: string;
-  }): Promise<IResult> {
+  public async register(
+    @Body()
+    user: {
+      account: string;
+      password: string;
+    },
+  ): Promise<IResult> {
     const result = await this.userService.register(user);
     return { code: 200, message: '注册成功', data: result };
   }
@@ -113,28 +116,28 @@ export class UserControllerApi {
 
   @ApiTags('登录状态验证')
   @Post('/logged')
-  public async logged(@Body() tokenInfo) {
+  public async logged(@Body() tokenInfo: { token: string }) {
+    if (!tokenInfo || !tokenInfo.token) {
+      throw new UnauthorizedException('token参数不存在,请检查token');
+    }
     const session = await this.sessionService.find({
       token: tokenInfo.token,
     });
-    console.log('session :', session);
-    if (session) {
-      console.log('object :', +session.createAt - +new Date());
+    if (!session) {
+      throw new UnauthorizedException('session不存在,登录已失效');
+    } else {
       if (+session.createAt - +new Date() > config.sessionTime) {
-        return { code: 400, messsage: '登录已过期', data: null };
+        throw new UnauthorizedException('登录已过期');
       }
       const user = await this.userService.findOneByAccount(session.account);
-      if (user) {
-        return {
-          code: 200,
-          message: '已经登录',
-          data: { ...user, token: session.token },
-        };
-      } else {
-        return { code: 400, message: '用户不存在', data: null };
+      if (!user) {
+        throw new NotFoundException('用户不存在');
       }
-    } else {
-      return { code: 400, message: 'session不存在,登录已失效', data: null };
+      return {
+        code: 200,
+        message: '已经登录',
+        data: { ...user, token: session.token },
+      };
     }
   }
 

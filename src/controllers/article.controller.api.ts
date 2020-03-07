@@ -1,101 +1,62 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  BadRequestException,
+} from '@nestjs/common';
 import { ArticleService } from '../services/article.service';
 import {
   ensureDirSync,
-  ensureFileSync,
   writeJsonSync,
   readJSONSync,
+  ensureFileSync,
 } from 'fs-extra';
 import * as path from 'path';
 import { CreateArticleDto } from '../dto/article/createArticle.dto';
 import { UpdateArticleDto } from '../dto/article/updateArticle.dto';
+import config from '../../global.config';
+import { ApiTags } from '@nestjs/swagger';
 
-const STATIC_PATH = path.join(__dirname, `../../static`);
-
+@ApiTags('文章操作')
 @Controller('api/articles')
 export class ArticleControllerApi {
   constructor(private readonly articleService: ArticleService) {}
 
-  // 获取全部文章文章
+  @ApiTags('获取全部文章')
   @Get('/all')
   async findAll() {
     const data = await this.articleService.findAll();
     return { code: 200, message: '获取成功', data };
   }
 
-  // 通过id获取一个文章数据,用来预览
+  @ApiTags('通过id获取一个文章数据')
   @Get('/:id')
-  async findById(@Param('id') id: string | number) {
+  async findArticleById(@Param('id') id: string | number) {
     if (!id) {
-      return {
-        code: 400,
-        message: '参数不正确,请检查传入的参数',
-        data: null,
-      };
+      throw new BadRequestException('参数不正确,请检查传入的参数');
     }
-    const res = await this.articleService.findById(id);
-    if (res && res.length > 0) {
-      let data = res[0];
-      if (data.savePath && data.savePath !== '') {
-        const json = readJSONSync(data.savePath);
-        data = Object.assign({}, data, {
-          markdown: json.markdown,
-          html: json.html,
-        });
-      } else {
-        data = Object.assign({}, data, {
-          markdown: '',
-          html: '',
-        });
-      }
-      return { code: 200, message: '获取成功', data };
-    } else {
-      return {
-        code: 400,
-        message: '获取失败',
-        data: null,
-      };
-    }
+    const data = await this.articleService.findById(id);
+    return { code: 200, message: '获取成功', data };
   }
 
-  // 获取一个文章数据,用来预览
-  @Post('')
-  async findByIdPost(@Body() write: { id: number }) {
-    const res = await this.articleService.findById(write.id);
-
-    if (res && res.length > 0) {
-      let data = res[0];
-      const json = readJSONSync(data.savePath);
-      data = Object.assign({}, data, {
-        markdown: json.markdown,
-        html: json.html,
-      });
-      return { code: 200, message: '获取成功', data };
-    } else {
-      return {
-        code: 400,
-        message: '获取失败',
-        data: null,
-      };
-    }
-  }
-
-  // 新建文章
+  @ApiTags('新建文章')
   @Post('/create')
   async create(@Body() createArticle: CreateArticleDto) {
     const result = await this.articleService.create(createArticle);
     return { code: 200, message: '创建成功', data: result };
   }
 
-  // 更新或编辑文章
+  @ApiTags('更新文章')
   @Post('/update')
   async updateArticle(@Body() updateArticle: UpdateArticleDto) {
     const result = await this.articleService.findById(updateArticle.id);
-    const article = result[0];
+    const article = result;
 
     if (article) {
       const DIR_PATH = path.join(
-        STATIC_PATH,
+        config.STATIC_PATH,
         `/articles/${article.collectName}`,
       );
       const FILE_PATH = path.join(DIR_PATH, `./${article.title}.json`);
@@ -133,6 +94,7 @@ export class ArticleControllerApi {
     }
   }
 
+  @ApiTags('删除文章')
   @Post('/delete')
   async deletArticle(@Body('id') id: string) {
     const article = await this.articleService.remove(id);
@@ -143,6 +105,7 @@ export class ArticleControllerApi {
     }
   }
 
+  @ApiTags('')
   @Get('/getArticleByCollectId/:id')
   async getArticleByCollectId(@Param('id') id: string) {
     const article = await this.articleService.getArticleByCollectId(id);

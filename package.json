@@ -5,9 +5,11 @@
   "author": "",
   "license": "MIT",
   "scripts": {
+    "prebuild": "rimraf dist",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "lint": "tslint -p tsconfig.json -c tslint.json --fix",
     "dev": "export NODE_ENV=development && nodemon",
+    "test": "export NODE_ENV=development && ts-node -r tsconfig-paths/register ./src/main.ts",
     "start": "export NODE_ENV=production && ts-node -r tsconfig-paths/register ./src/main.ts",
     "webpack": "webpack --config webpack.config.js",
     "pm2": "pm2 start pm2.json"

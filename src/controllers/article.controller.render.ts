@@ -35,8 +35,8 @@ export class ArticleControllerRender {
   async renderById(@Param() params) {
     const res = await this.articleService.findById(params.id);
 
-    if (res && res.length > 0) {
-      const result = res[0];
+    if (res) {
+      const result = res;
       const json = readJSONSync(result.savePath);
 
       return {
