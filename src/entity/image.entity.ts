@@ -5,7 +5,7 @@ export class ImageEntiry {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column({ length: 50 })
+    @Column('varchar', { length: 100 })
     public name: string;
 
     @Column({ length: 300 })

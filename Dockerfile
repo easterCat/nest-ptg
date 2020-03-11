@@ -10,7 +10,9 @@ RUN cd /var/ptg/server \
   && npm install -g nodemon \
   && npm install -g cross-env \
   && npm install -g pm2 \
-  && npm run build
+  && npm run build \
+  && apt-get update \
+  && echo y | apt-get install vim
 
 EXPOSE 6688
 

@@ -23,8 +23,8 @@ if (process.env.NODE_ENV === 'development') {
     config.webUrl = 'http://127.0.0.1:6688';
     config.githubID = 'Iv1.59ce08097886630e';
     config.githubSecret = 'e0272412365d8f63e5468c78a3306e1b2fb8da33';
-    config.db.host = '111.231.138.132';
-    config.db.password = 'Jp940612';
+    config.db.host = '127.0.0.1';
+    config.db.password = '123456';
 } else {
     config.webUrl = '';
     config.githubID = 'Iv1.1acd14baff8e005f';
