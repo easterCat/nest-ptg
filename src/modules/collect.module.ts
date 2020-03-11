@@ -8,11 +8,8 @@ import { Collect } from '../entity/collect.entity';
 import { ArticleEntity } from '../entity/article.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Collect]),
-    TypeOrmModule.forFeature([ArticleEntity]),
-  ],
-  controllers: [CollectControllerRender, CollectControllerApi],
-  providers: [CollectService, ArticleService],
+    imports: [TypeOrmModule.forFeature([Collect]), TypeOrmModule.forFeature([ArticleEntity])],
+    controllers: [CollectControllerRender, CollectControllerApi],
+    providers: [CollectService, ArticleService],
 })
 export class CollectModule {}

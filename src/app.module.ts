@@ -11,32 +11,34 @@ import { SessionModule } from './modules/session.module';
 import { StateModule } from './modules/state.module';
 import { ImageModule } from './modules/image.module';
 import { ProjectModule } from './modules/project.module';
+import { CommentModule } from './modules/comment.module';
 import config from '../global.config';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: config.db.host,
-      port: config.db.port,
-      username: config.db.username,
-      password: config.db.password,
-      database: config.db.database,
-      entities: ['src/**/*.entity{.ts,.js}'],
-      synchronize: true,
-    }),
-    UserModule,
-    PersonModule,
-    ArticleModule,
-    CollectModule,
-    SessionModule,
-    StateModule,
-    ImageModule,
-    ProjectModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [
+        TypeOrmModule.forRoot({
+            type: 'mysql',
+            host: config.db.host,
+            port: config.db.port,
+            username: config.db.username,
+            password: config.db.password,
+            database: config.db.database,
+            entities: ['src/**/*.entity{.ts,.js}'],
+            synchronize: true,
+        }),
+        UserModule,
+        PersonModule,
+        ArticleModule,
+        CollectModule,
+        SessionModule,
+        StateModule,
+        ImageModule,
+        ProjectModule,
+        CommentModule,
+    ],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule {
-  constructor(private readonly connection: Connection) {}
+    constructor(private readonly connection: Connection) {}
 }

@@ -4,22 +4,19 @@ import { ArticleService } from '../services/article.service';
 
 @Controller('/render/collect')
 export class CollectControllerRender {
-  constructor(
-    private readonly collectService: CollectService,
-    private readonly articleService: ArticleService,
-  ) {}
+    constructor(private readonly collectService: CollectService, private readonly articleService: ArticleService) {}
 
-  @Get()
-  @Render('collectCreate.hbs')
-  renderCreateCollect() {
-    return '';
-  }
+    @Get()
+    @Render('collectCreate.hbs')
+    renderCreateCollect() {
+        return '';
+    }
 
-  @Get('/write')
-  @Render('write.hbs')
-  async renderCollect() {
-    const allCollects = await this.collectService.findAll();
-    // const allArticles = await this.articleService.findAll();
-    return { title: '文章列表', allCollects, allArticles: [] };
-  }
+    @Get('/write')
+    @Render('write.hbs')
+    async renderCollect() {
+        const allCollects = await this.collectService.findAll();
+        // const allArticles = await this.articleService.findAll();
+        return { title: '文章列表', allCollects, allArticles: [] };
+    }
 }
