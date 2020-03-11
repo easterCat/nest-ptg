@@ -1,27 +1,17 @@
 FROM node:10.16.3
 
-RUN mkdir -p /ptg/server
-
 # make the 'app' folder the current working directory
-WORKDIR /ptg/server
+WORKDIR /var/ptg/server
 
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
-
-# install project dependencies
-RUN npm install --no-optional
-
-RUN npm install -g nodemon
-
-RUN npm install -g cross-env
-
-RUN npm install -g pm2
-
-# copy project files and folders to the current working directory (i.e. 'app' folder)
-COPY . /ptg/server
-
-RUN npm run build
+RUN cd /var/ptg/server \ 
+  && git clone https://github.com/easterCat/nest-ptg.git \ 
+  && cd /var/ptg/server/nest-ptg \ 
+  && npm install --no-optional \ 
+  && npm install -g nodemon \
+  && npm install -g cross-env \
+  && npm install -g pm2 \
+  && npm run build
 
 EXPOSE 6688
 
-CMD npm run dev
+CMD npm run pm2
