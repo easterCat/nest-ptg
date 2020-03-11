@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'development') {
     config.githubID = 'Iv1.1acd14baff8e005f';
     config.githubSecret = '466ceb62920fd0cc3cc9a24b190b0fdf7604671b';
     config.db.host = '111.231.138.132';
-    config.db.host = 'Jp940612';
+    config.db.password = 'Jp940612';
 }
 
 export default config;
