@@ -3,20 +3,20 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ name: 'comment' })
 export class CommentEntity {
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column({ length: 100 })
-    createTime: string;
+    public createTime: string;
 
     @Column({ length: 300 })
-    content: string;
+    public content: string;
 
     @Column({ length: 30 })
-    articleId: string;
+    public articleId: string;
 
     @Column({ length: 30 })
-    replyUser: string;
+    public replyUser: string;
 
     @Column({ length: 30 })
-    commentUser: string;
+    public commentUser: string;
 }

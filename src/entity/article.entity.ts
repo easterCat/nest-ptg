@@ -3,44 +3,44 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ name: 'article' })
 export class ArticleEntity {
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column({ length: 100 })
-    createTime: string;
+    public createTime: string;
 
     @Column({ length: 100 })
-    updateTime: string;
+    public updateTime: string;
 
     @Column({ length: 100 })
-    title: string;
+    public title: string;
 
-    @Column()
-    collectId: number;
+    @Column('int', { name: 'collectId' })
+    public collectId: number;
 
     @Column({ length: 30 })
-    authorId: string;
+    public authorId: string;
 
     @Column({ length: 50 })
-    authorName: string;
+    public authorName: string;
 
     @Column({ length: 80 })
-    collectName: string;
+    public collectName: string;
 
     @Column({ length: 300 })
-    description: string;
+    public description: string;
 
     @Column({ length: 300 })
-    savePath: string;
+    public savePath: string;
 
     @Column({ length: 300 })
-    tags: string;
+    public tags: string;
 
     @Column('int', { name: 'view' })
-    view: number;
+    public view: number;
 
     @Column('int', { name: 'favorite' })
-    favorite: number;
+    public favorite: number;
 
     @Column('int', { name: 'like' })
-    like: number;
+    public like: number;
 }

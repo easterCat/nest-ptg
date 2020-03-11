@@ -2,18 +2,18 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Person {
-  @PrimaryGeneratedColumn()
-  PersonID: number;
+    @PrimaryGeneratedColumn()
+    public id: number;
 
-  @Column({ length: 100 })
-  LastName: string;
+    @Column({ length: 100 })
+    public lastName: string;
 
-  @Column({ length: 100 })
-  FirstName: string;
+    @Column({ length: 100 })
+    public firstName: string;
 
-  @Column({ length: 300 })
-  Address: string;
+    @Column({ length: 300 })
+    public address: string;
 
-  @Column({ length: 300 })
-  City: string;
+    @Column({ length: 300 })
+    public city: string;
 }

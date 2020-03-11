@@ -14,6 +14,6 @@ export class ImageEntiry {
     @Column({ length: 50 })
     public createdBy: string;
 
-    @Column('int')
+    @Column('int', { name: 'createAt' })
     public createAt: number;
 }
