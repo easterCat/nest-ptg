@@ -1,13 +1,13 @@
 {
-  "apps": {
-    "name": "nest-backstage-ptg",
-    "script": "npm",
-    "cwd": "./",
-    "args": "start",
-    "error_file": "./logs/app-err.log",
-    "out_file": "./logs/app-out.log",
-    "merge_logs": true,
-    "log_date_format": "YYYY-MM-DD HH:mm:ss",
-    "autorestart": true
-  }
+    "apps": {
+        "name": "nest-backstage-ptg",
+        "script": "npm",
+        "cwd": "./",
+        "args": "start",
+        "error_file": "./logs/app-err.log",
+        "out_file": "./logs/app-out.log",
+        "merge_logs": true,
+        "log_date_format": "YYYY-MM-DD HH:mm:ss",
+        "autorestart": true
+    }
 }

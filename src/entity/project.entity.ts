@@ -15,13 +15,13 @@ export class ProjectEntity extends BaseEntity {
     @Column('int')
     public createdAt: number;
 
-    @ManyToOne(
-        (type) => UserEntity,
-        (user) => user.posts,
-        {
-            onDelete: 'CASCADE',
-        },
-    )
-    public user: UserEntity;
-    createInput: Express.User;
+    // @ManyToOne(
+    //     (type) => UserEntity,
+    //     (user) => user.posts,
+    //     {
+    //         onDelete: 'CASCADE',
+    //     },
+    // )
+    // public user: UserEntity;
+    // createInput: Express.User;
 }

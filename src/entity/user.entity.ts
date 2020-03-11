@@ -36,9 +36,9 @@ export class UserEntity {
     @Column({ length: 250 })
     public password: string;
 
-    @OneToMany(
-        (type) => ProjectEntity,
-        (project) => project.user,
-    )
-    public posts: ProjectEntity[];
+    // @OneToMany(
+    //     (type) => ProjectEntity,
+    //     (project) => project.user,
+    // )
+    // public posts: ProjectEntity[];
 }
