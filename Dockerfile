@@ -14,6 +14,10 @@ RUN cd /var/ptg/server \
   && apt-get update \
   && echo y | apt-get install vim
 
+WORKDIR /var/ptg/server/nest-ptg
+
+VOLUME ["/var/ptg/static"]
+
 EXPOSE 6688
 
 CMD npm run pm2
