@@ -1,6 +1,6 @@
 {
     "apps": {
-        "name": "nest-backstage-ptg",
+        "name": "nest-ptg",
         "script": "npm",
         "cwd": "./",
         "args": "start",
