@@ -13,7 +13,7 @@ export class UserEntity {
     @Column({ length: 100 })
     public avatarUrl: string;
 
-    @Column({ length: 100, charset: 'utf8mb4' })
+    @Column({ length: 100 })
     public name: string;
 
     @Column({ length: 40 })
