@@ -35,12 +35,12 @@ export class ArticleEntity {
     @Column({ length: 300 })
     public tags: string;
 
-    @Column('int', { name: 'view' })
+    @Column('int', { name: 'view', default: 0 })
     public view: number;
 
-    @Column('int', { name: 'favorite' })
+    @Column('int', { name: 'favorite', default: 0 })
     public favorite: number;
 
-    @Column('int', { name: 'like' })
+    @Column('int', { name: 'like', default: 0 })
     public like: number;
 }

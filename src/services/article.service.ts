@@ -33,8 +33,6 @@ export class ArticleService {
             description: '',
             authorId: '',
             authorName: '',
-            favorite: 0,
-            view: 0,
         });
     }
 
