@@ -16,8 +16,9 @@ RUN cd /var/ptg/server \
 
 WORKDIR /var/ptg/server/nest-ptg
 
-VOLUME ["/var/ptg/static"]
-
 EXPOSE 6688
 
-CMD npm run pm2
+# VOLUME [ "/var/ptg/static" ]
+
+# pm2-runtime designed for Docker container which keeps an application in the foreground which keep the container running
+CMD [ "pm2-runtime", "start","pm2.json"]
