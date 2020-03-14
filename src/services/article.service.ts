@@ -59,8 +59,12 @@ export class ArticleService {
 
         if (result.savePath) {
             const json = await this.findAricleJson(result.savePath);
-            result = Object.assign({}, { ...result }, { ...json });
-            return result;
+
+            if (!json) {
+                throw new BadRequestException('获取文章路径失败');
+            }
+
+            return Object.assign({}, { ...result }, { ...json });
         } else {
             throw new NotFoundException('文章不存在');
         }

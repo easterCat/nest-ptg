@@ -1,17 +1,17 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class Collect {
+@Entity('collect')
+export class CollectEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 
     @Column({ length: 80 })
     public collectName: string;
 
-    @Column({ length: 300 })
+    @Column('text', { nullable: true, default: null })
     public description: string;
 
-    @Column({ length: 100 })
+    @Column('varchar', { length: 100, nullable: true, default: null })
     public collectTags: string;
 
     @Column({ length: 30 })

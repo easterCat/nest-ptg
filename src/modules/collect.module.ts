@@ -4,11 +4,11 @@ import { CollectControllerRender } from '../controllers/collect.controller.rende
 import { CollectControllerApi } from '../controllers/collect.controller.api';
 import { CollectService } from '../services/collect.service';
 import { ArticleService } from '../services/article.service';
-import { Collect } from '../entity/collect.entity';
+import { CollectEntity } from '../entity/collect.entity';
 import { ArticleEntity } from '../entity/article.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Collect]), TypeOrmModule.forFeature([ArticleEntity])],
+    imports: [TypeOrmModule.forFeature([CollectEntity]), TypeOrmModule.forFeature([ArticleEntity])],
     controllers: [CollectControllerRender, CollectControllerApi],
     providers: [CollectService, ArticleService],
 })

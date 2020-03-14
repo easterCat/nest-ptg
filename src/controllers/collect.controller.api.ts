@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpException } from '@nestjs/common';
 import { CollectService } from '../services/collect.service';
 import { ArticleService } from '../services/article.service';
 import { CreateCollectDto } from '../dto/collect/collect.dto';
@@ -31,6 +31,16 @@ export class CollectControllerApi {
         } else {
             return { code: 400, message: '合集id错误,请检查传参', data: {} };
         }
+    }
+
+    @Post('/delete')
+    async deleteCollect(@Body('id') id: number) {
+        if (id !== 0 && !id) {
+            throw new HttpException('错误的参数', 400);
+        }
+
+        const data = await this.collectService.deleteById(id);
+        return { code: 200, message: '删除成功', data };
     }
 
     @Post('/create')

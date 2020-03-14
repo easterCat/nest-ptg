@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, Param, BadRequestException, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, BadRequestException } from '@nestjs/common';
 import { ArticleService } from '../services/article.service';
-import { ensureDirSync, writeJsonSync, ensureFileSync } from 'fs-extra';
+import { ensureDirSync, writeJsonSync, ensureFileSync, removeSync } from 'fs-extra';
 import * as path from 'path';
 import { CreateArticleDto } from '../dto/article/createArticle.dto';
 import { UpdateArticleDto } from '../dto/article/updateArticle.dto';
@@ -34,45 +34,60 @@ export class ArticleControllerApi {
     }
 
     @Post('/update')
-    async updateArticle(@Body() updateArticle: UpdateArticleDto) {
-        const result = await this.articleService.findById(updateArticle.id);
-        const article = result;
+    async updateArticle(@Body() updateArticleData: UpdateArticleDto) {
+        const article = await this.articleService.findById(updateArticleData.id);
+        const DIR_PATH = path.join(config.STATIC_PATH, `/articles/${article.collectName}`);
 
-        if (article) {
-            const DIR_PATH = path.join(config.STATIC_PATH, `/articles/${article.collectName}`);
+        if (updateArticleData.title !== article.title) {
+            const OLD_FILE_PATH = path.join(DIR_PATH, `./${article.title}.json`);
+            const FILE_PATH = path.join(DIR_PATH, `./${updateArticleData.title}.json`);
+
+            ensureDirSync(DIR_PATH);
+            ensureFileSync(FILE_PATH);
+            removeSync(OLD_FILE_PATH);
+
+            writeJsonSync(FILE_PATH, {
+                markdown: article.markdown,
+                html: article.html,
+            });
+
+            article.savePath = FILE_PATH;
+        }
+
+        if (updateArticleData.markdown && updateArticleData.html) {
             const FILE_PATH = path.join(DIR_PATH, `./${article.title}.json`);
             ensureDirSync(DIR_PATH);
             ensureFileSync(FILE_PATH);
 
             writeJsonSync(FILE_PATH, {
-                markdown: updateArticle.markdown,
-                html: updateArticle.html,
+                markdown: updateArticleData.markdown,
+                html: updateArticleData.html,
             });
 
-            article.updateTime = Date.now() + '';
             article.savePath = FILE_PATH;
-
-            if (updateArticle.collectName && updateArticle.collectName !== '') {
-                article.collectName = updateArticle.collectName;
-            }
-
-            if (updateArticle.collectId && updateArticle.collectId >= 0) {
-                article.collectId = updateArticle.collectId;
-            }
-
-            if (updateArticle.id) {
-                article.id = updateArticle.id;
-            }
-
-            if (updateArticle.title) {
-                article.title = updateArticle.title;
-            }
-
-            const data = await this.articleService.update(article);
-            return { code: 200, message: '更新成功', data };
-        } else {
-            throw new BadRequestException('更新失败');
         }
+
+        if (updateArticleData.collectName) {
+            article.collectName = updateArticleData.collectName;
+        }
+
+        if (updateArticleData.collectId) {
+            article.collectId = updateArticleData.collectId;
+        }
+
+        if (updateArticleData.id) {
+            article.id = updateArticleData.id;
+        }
+
+        if (updateArticleData.title) {
+            article.title = updateArticleData.title;
+        }
+
+        article.updateTime = Date.now() + '';
+
+        const data = await this.articleService.update(article);
+
+        return { code: 200, message: '更新成功', data };
     }
 
     @Post('/delete')
@@ -81,6 +96,11 @@ export class ArticleControllerApi {
         if (!article) {
             throw new BadRequestException('删除失败');
         }
+
+        const DIR_PATH = path.join(config.STATIC_PATH, `/articles/${article.collectName}`);
+        const FILE_PATH = path.join(DIR_PATH, `./${article.title}.json`);
+        removeSync(FILE_PATH);
+
         return { code: 200, message: '删除成功', article };
     }
 

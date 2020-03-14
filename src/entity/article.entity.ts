@@ -43,4 +43,6 @@ export class ArticleEntity {
 
     @Column('int', { name: 'like', default: 0 })
     public like: number;
+    markdown: any;
+    html: any;
 }
