@@ -61,11 +61,11 @@ function addEngine(app: any) {
         prefix: '/static/',
     });
     // 设置视图文件夹
-    app.setBaseViewsDir(join(__dirname, '..', '/views'));
+    app.setBaseViewsDir(join(__dirname, '..', 'views'));
     // 设置视图引擎
     app.setViewEngine('hbs');
     // 设置视图部件的文件夹
-    registerPartials(join(__dirname, '..', '/views/partials'));
+    registerPartials(join(__dirname, '..', 'views/partials'));
 }
 
 function addMiddleware(app: any) {

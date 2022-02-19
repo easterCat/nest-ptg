@@ -1,4 +1,4 @@
-FROM node:10.16.3
+FROM node:10.24.1
 
 # make the 'app' folder the current working directory
 WORKDIR /var/ptg/server
